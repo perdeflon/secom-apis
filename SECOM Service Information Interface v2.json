@@ -1416,7 +1416,7 @@
 				"decisionReason",
 				"envelopeRootCertificateThumbprint",
 				"envelopeSignatureCertificate",
-				"",
+				"envelopeSignatureTime",
 				"transactionIdentifier"
 			],
 			"type": "object",

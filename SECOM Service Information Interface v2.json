@@ -1603,7 +1603,9 @@
 				"transactionIdentifier": {
 					"format": "uuid",
 					"description": "Identifier from Upload Link",
-					"type": "string"
+					"pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
+					"type": "string",
+					"example": "550e8400-e29b-41d4-a716-446655440000"
 				},
 				"envelopeSignatureCertificate": {
 					"description": "The public certificate(s) of the sender. Used to verify the envelope signature.",
@@ -2038,7 +2040,9 @@
 				"envelopeSignatureTime": {
 					"format": "date-time",
 					"description": "Time when envelope is signed",
-					"type": "string"
+					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+					"type": "string",
+					"example": "2025-04-28T14:30:00Z"
 				}
 			},
 			"additionalProperties": false
@@ -2116,7 +2120,9 @@
 				"envelopeSignatureTime": {
 					"format": "date-time",
 					"description": "Time when envelope is signed",
-					"type": "string"
+					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+					"type": "string",
+					"example": "2025-04-28T14:30:00Z"
 				}
 			},
 			"additionalProperties": false

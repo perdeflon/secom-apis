@@ -1,2873 +1,2873 @@
 {
-	"swagger": "2.0",
-	"info": {
-		"title": "SECOM Information Service interface",
-		"description": "Compliant with SECOM v2.0",
-		"contact": {
-			"name": "IEC TC80 WG17 Convenor Mr Kwangil Lee",
-			"url": "https://iec.ch/dyn/www/f?p=103:14:206311384503473::::FSP_ORG_ID:13085"
-		},
-		"version": "v2"
-	},
-	"paths": {
-		"/v2/access": {
-			"post": {
-				"tags": [
-					"Access"
-				],
-				"summary": "Access to information can be requested through the Access interface.",
-				"consumes": [
-					"application/json"
-				],
-				"produces": [
-					"application/json"
-				],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"description": "AccessRequestObject",
-						"schema": {
-							"$ref": "#/definitions/AccessRequestObject"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "AccessResponseObject",
-						"schema": {
-							"$ref": "#/definitions/AccessResponseObject"
-						}
-					},
-					"400": {
-						"description": "Bad request",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"405": {
-						"description": "Method not allowed",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"500": {
-						"description": "Internal server error",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"501": {
-						"description": "Not implemented",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					}
-				}
-			}
-		},
-		"/v2/access/notification": {
-			"post": {
-				"tags": [
-					"Access"
-				],
-				"summary": "Response to Access Request with decision shall be sent asynchronous through this interface.",
-				"consumes": [
-					"application/json"
-				],
-				"produces": [
-					"application/json"
-				],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"description": "AccessNotificationObject",
-						"schema": {
-							"$ref": "#/definitions/AccessNotificationObject"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "ResponseObject",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"400": {
-						"description": "Bad request",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"405": {
-						"description": "Method not allowed",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"500": {
-						"description": "Internal server error",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"501": {
-						"description": "Not implemented",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					}
-				}
-			}
-		},
-		"/v2/acknowledgement": {
-			"post": {
-				"tags": [
-					"Acknowledgement"
-				],
-				"summary": "Upload acknowledgement for previously sent message",
-				"consumes": [
-					"application/json"
-				],
-				"produces": [
-					"application/json"
-				],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"description": "AcknowledgementObject with reference to information and time when delivered",
-						"schema": {
-							"$ref": "#/definitions/AcknowledgementObject"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Successfully received ACK for message *transactionIdentifier*",
-						"schema": {
-							"$ref": "#/definitions/AcknowledgementResponseObject"
-						}
-					},
-					"400": {
-						"description": "Bad request",
-						"schema": {
-							"$ref": "#/definitions/AcknowledgementResponseObject"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"403": {
-						"description": "Not authorized to upload ACK",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"405": {
-						"description": "Method not allowed",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"500": {
-						"description": "Internal server error",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"501": {
-						"description": "Not implemented",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					}
-				}
-			}
-		},
-		"/v2/capability": {
-			"get": {
-				"tags": [
-					"Capability"
-				],
-				"summary": "The purpose of the interface is to provide a dynamic method to ask a service instance at runtime what interfaces that are accessible, and what payload formats and version that are valid.",
-				"produces": [
-					"application/json"
-				],
-				"responses": {
-					"200": {
-						"description": "CapabilityResponseObject",
-						"schema": {
-							"$ref": "#/definitions/CapabilityResponseObject"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"405": {
-						"description": "Method not allowed",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"500": {
-						"description": "Internal server error",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					}
-				}
-			}
-		},
-		"/v2/encryptionKey/request": {
-			"post": {
-				"tags": [
-					"EncryptionKey"
-				],
-				"summary": "This operation requests an encrypted secret key from a producer. The response is sent asynchronously through the consumer’s POST key operation.",
-				"consumes": [
-					"application/json"
-				],
-				"produces": [
-					"application/json"
-				],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"description": "EncryptionKeyRequestObject",
-						"schema": {
-							"$ref": "#/definitions/EncryptionKeyRequestObject"
-						}
-					}
-				],
-				"responses": {
-					"202": {
-						"description": "EncryptionKeyResponseObject, request accepted",
-						"schema": {
-							"$ref": "#/definitions/EncryptionKeyResponseObject"
-						}
-					},
-					"400": {
-						"description": "Bad request",
-						"schema": {
-							"$ref": "#/definitions/EncryptionKeyResponseObject"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/EncryptionKeyResponseObject"
-						}
-					},
-					"403": {
-						"description": "Not authorized",
-						"schema": {
-							"$ref": "#/definitions/EncryptionKeyResponseObject"
-						}
-					},
-					"405": {
-						"description": "Method not allowed",
-						"schema": {
-							"$ref": "#/definitions/EncryptionKeyResponseObject"
-						}
-					},
-					"500": {
-						"description": "Internal server error",
-						"schema": {
-							"$ref": "#/definitions/EncryptionKeyResponseObject"
-						}
-					},
-					"501": {
-						"description": "Method not implemented",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					}
-				}
-			}
-		},
-		"/v2/encryptionKey": {
-			"post": {
-				"tags": [
-					"EncryptionKey"
-				],
-				"summary": "The purpose of the interface is to exchange a temporary secret key.",
-				"consumes": [
-					"application/json"
-				],
-				"produces": [
-					"application/json"
-				],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"description": "EncryptionKeyObject with the symmetric encryption key",
-						"schema": {
-							"$ref": "#/definitions/EncryptionKeyObject"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "EncryptionKeyResponseObject",
-						"schema": {
-							"$ref": "#/definitions/EncryptionKeyResponseObject"
-						}
-					},
-					"400": {
-						"description": "Bad request",
-						"schema": {
-							"$ref": "#/definitions/EncryptionKeyResponseObject"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/EncryptionKeyResponseObject"
-						}
-					},
-					"405": {
-						"description": "Method not allowed",
-						"schema": {
-							"$ref": "#/definitions/EncryptionKeyResponseObject"
-						}
-					},
-					"500": {
-						"description": "Internal server error",
-						"schema": {
-							"$ref": "#/definitions/EncryptionKeyResponseObject"
-						}
-					},
-					"501": {
-						"description": "Method not implemented",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"403": {
-						"description": "Not authorized"
-					}
-				}
-			}
-		},
-		"/v2/object/search": {
-			"post": {
-				"tags": [
-					"Get"
-				],
-				"summary": "The Get interface is used for pulling information from a service provider.",
-				"consumes": [
-					"application/json"
-				],
-				"produces": [
-					"application/json"
-				],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"description": "GetFilterObject",
-						"schema": {
-							"$ref": "#/definitions/GetFilterObject"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "GetResponseObject",
-						"schema": {
-							"$ref": "#/definitions/GetResponseObject"
-						}
-					},
-					"400": {
-						"description": "Bad request",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"403": {
-						"description": "Not authorized to requested information",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"404": {
-						"description": "Information not found",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"405": {
-						"description": "Method not allowed",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"500": {
-						"description": "Internal server error",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"501": {
-						"description": "Not implemented",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					}
-				}
-			}
-		},
-		"/v2/object/search/summary": {
-			"post": {
-				"tags": [
-					"Get"
-				],
-				"summary": "A list of information shall be returned from this interface. The list contains identity, status and short description of each information object.",
-				"consumes": [
-					"application/json"
-				],
-				"produces": [
-					"application/json"
-				],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"description": "GetSummaryFilterObject",
-						"schema": {
-							"$ref": "#/definitions/GetSummaryFilterObject"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "GetSummaryResponseObject",
-						"schema": {
-							"$ref": "#/definitions/GetSummaryResponseObject"
-						}
-					},
-					"400": {
-						"description": "Bad request",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"403": {
-						"description": "Not authorized to requested information",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"404": {
-						"description": "Information not found",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"405": {
-						"description": "Method not allowed",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"500": {
-						"description": "Internal server error",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"501": {
-						"description": "Not implemented",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					}
-				}
-			}
-		},
-		"/v2/object/search/link": {
-			"post": {
-				"tags": [
-					"Get"
-				],
-				"summary": "The Get By Link interface is used for pulling information from a data storage handled by the information owner.",
-				"consumes": [
-					"application/json"
-				],
-				"produces": [
-					"application/octet-stream",
-					"application/json"
-				],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"description": "GetByLinkObject",
-						"schema": {
-							"$ref": "#/definitions/GetByLinkObject"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "The data payload Base64",
-						"schema": {
-							"format": "byte",
-							"type": "string"
-						}
-					},
-					"400": {
-						"description": "Bad request",
-						"schema": {
-							"$ref": "#/definitions/UploadResponseObject"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"403": {
-						"description": "Not authorized to requested information",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"404": {
-						"description": "Information with reference *dataReference* not found",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"405": {
-						"description": "Method not allowed",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"500": {
-						"description": "Internal server error",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"501": {
-						"description": "Not implemented",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					}
-				}
-			}
-		},
-		"/v2/ping": {
-			"get": {
-				"tags": [
-					"Ping"
-				],
-				"summary": "The purpose of the interface is to provide a dynamic method to ask for the technical status (version and last interaction time) of the specific service instance.",
-				"produces": [
-					"application/json"
-				],
-				"responses": {
-					"200": {
-						"description": "PingResponseObject",
-						"schema": {
-							"$ref": "#/definitions/PingResponseObject"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"405": {
-						"description": "Method not allowed",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"500": {
-						"description": "Internal server error",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					}
-				}
-			}
-		},
-		"/v2/publicKey/download": {
-			"post": {
-				"tags": [
-					"PublicKey"
-				],
-				"summary": "The purpose of the interface is to request a public key",
-				"consumes": [
-					"application/json"
-				],
-				"produces": [
-					"application/json"
-				],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"schema": {
-							"$ref": "#/definitions/PublicKeyFilterObject"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "PublicKeyResponseObject",
-						"schema": {
-							"$ref": "#/definitions/PublicKeyResponseObject"
-						}
-					},
-					"400": {
-						"description": "Bad request",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"403": {
-						"description": "Not authorized to requested information",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"404": {
-						"description": "Public key not found",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"405": {
-						"description": "Method not allowed",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"500": {
-						"description": "Internal server error",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"501": {
-						"description": "Not implemented",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					}
-				}
-			}
-		},
-		"/v2/publicKey/upload": {
-			"post": {
-				"tags": [
-					"PublicKey"
-				],
-				"summary": "The purpose of this interface is to receive a public key",
-				"consumes": [
-					"application/json"
-				],
-				"produces": [
-					"application/json"
-				],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"description": "PublicKeyRequestObject",
-						"schema": {
-							"$ref": "#/definitions/PublicKeyRequestObject"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "PublicKeyResponseObject",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"400": {
-						"description": "Bad request",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"405": {
-						"description": "Method not allowed",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"500": {
-						"description": "Internal server error",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"501": {
-						"description": "Not implemented",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					}
-				}
-			}
-		},
-		"/v2/subscription": {
-			"post": {
-				"tags": [
-					"Subscription"
-				],
-				"summary": "The purpose of the interface is to request subscription on information, either specific information according to parameters, or the information accessible upon decision by information provider.\r\nSpecific id on the information object subscription is requested for specific status on the information or specific area of interest",
-				"consumes": [
-					"application/json"
-				],
-				"produces": [
-					"application/json"
-				],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"description": "SubscriptionRequestObject",
-						"schema": {
-							"$ref": "#/definitions/SubscriptionRequestObject"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "SubscriptionResponsObject, Subscription successfully created",
-						"schema": {
-							"$ref": "#/definitions/SubscriptionResponseObject"
-						}
-					},
-					"400": {
-						"description": "Bad request",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"403": {
-						"description": "Not authorized",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"404": {
-						"description": "Information not found",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"405": {
-						"description": "Method not allowed",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"500": {
-						"description": "Internal server error",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"501": {
-						"description": "Not implemented",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					}
-				}
-			}
-		},
-		"/v2/subscription/delete": {
-			"post": {
-				"tags": [
-					"Subscription"
-				],
-				"summary": "This interface shall be used by the consumer to request removal of subscription.\r\nSpecific identity of the information object to remove subscription for. If no id entity provided, all subscriptions for the caller is removed",
-				"consumes": [
-					"application/json"
-				],
-				"produces": [
-					"application/json"
-				],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"description": "RemoveSubscriptionObject",
-						"schema": {
-							"$ref": "#/definitions/RemoveSubscriptionObject"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Subscription *identifier* removed",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"400": {
-						"description": "Bad request",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"403": {
-						"description": "Not authorized to remove subscription",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"404": {
-						"description": "Subscription *identifier* not found",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"405": {
-						"description": "Method not allowed",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"500": {
-						"description": "Internal server error",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"501": {
-						"description": "Not implemented",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					}
-				}
-			}
-		},
-		"/v2/subscription/notification": {
-			"post": {
-				"tags": [
-					"Subscription"
-				],
-				"summary": "This interface receives notifications when subscription is created or removed by information producer.\r\nContains the identity of the information object in focus and type of event; Create or Delete.",
-				"consumes": [
-					"application/json"
-				],
-				"produces": [
-					"application/json"
-				],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"description": "SubscriptionNotificationObject",
-						"schema": {
-							"$ref": "#/definitions/SubscriptionNotificationObject"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Subscription *identifier* created/deleted notification received",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"400": {
-						"description": "Bad request",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"405": {
-						"description": "Method not allowed",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"500": {
-						"description": "Internal server error",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					},
-					"501": {
-						"description": "Not implemented",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					}
-				}
-			}
-		},
-		"/v2/object": {
-			"post": {
-				"tags": [
-					"Upload"
-				],
-				"summary": "The interface shall be used for uploading (pushing) data to a consumer. The operation expects one single data object and its metadata.",
-				"consumes": [
-					"application/json"
-				],
-				"produces": [
-					"application/json"
-				],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"description": "UploadObject",
-						"schema": {
-							"$ref": "#/definitions/UploadObject"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "UploadResponseObject, Message successfully uploaded",
-						"schema": {
-							"$ref": "#/definitions/UploadResponseObject"
-						}
-					},
-					"400": {
-						"description": "Bad request",
-						"schema": {
-							"$ref": "#/definitions/UploadResponseObject"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/UploadResponseObject"
-						}
-					},
-					"403": {
-						"description": "Not authorized to upload",
-						"schema": {
-							"$ref": "#/definitions/UploadResponseObject"
-						}
-					},
-					"405": {
-						"description": "Method not allowed",
-						"schema": {
-							"$ref": "#/definitions/UploadResponseObject"
-						}
-					},
-					"413": {
-						"description": "Request entity too large",
-						"schema": {
-							"$ref": "#/definitions/UploadResponseObject"
-						}
-					},
-					"500": {
-						"description": "Internal server error",
-						"schema": {
-							"$ref": "#/definitions/UploadResponseObject"
-						}
-					},
-					"501": {
-						"description": "Not implemented",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					}
-				}
-			}
-		},
-		"/v2/object/link": {
-			"post": {
-				"tags": [
-					"Upload"
-				],
-				"summary": "The purpose with this interface is to upload (push) a link to information to a consumer.",
-				"consumes": [
-					"application/json"
-				],
-				"produces": [
-					"application/json"
-				],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"description": "UploadLinkObject",
-						"schema": {
-							"$ref": "#/definitions/UploadLinkObject"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "UploadResponseObject, Link successfully uploaded",
-						"schema": {
-							"$ref": "#/definitions/UploadResponseObject"
-						}
-					},
-					"400": {
-						"description": "Bad request",
-						"schema": {
-							"$ref": "#/definitions/UploadResponseObject"
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"schema": {
-							"$ref": "#/definitions/UploadResponseObject"
-						}
-					},
-					"403": {
-						"description": "Not authorized to upload link",
-						"schema": {
-							"$ref": "#/definitions/UploadResponseObject"
-						}
-					},
-					"405": {
-						"description": "Method not allowed",
-						"schema": {
-							"$ref": "#/definitions/UploadResponseObject"
-						}
-					},
-					"500": {
-						"description": "Internal server error",
-						"schema": {
-							"$ref": "#/definitions/UploadResponseObject"
-						}
-					},
-					"501": {
-						"description": "Not implemented",
-						"schema": {
-							"$ref": "#/definitions/ResponseObject"
-						}
-					}
-				}
-			}
-		}
-	},
-	"definitions": {
-		"AccessNotificationObject": {
-			"required": [
-				"envelope",
-				"envelopeSignature"
-			],
-			"type": "object",
-			"properties": {
-				"envelope": {
-					"$ref": "#/definitions/EnvelopeAccessNotificationObject"
-				},
-				"envelopeSignature": {
-					"description": "The signature ot the EnvelopeAccessNotificationObject in HEX format without whitespace or linebreaks",
-					"minLength": 1,
-					"pattern": "^(0x)?[A-Fa-f0-9]+$",
-					"type": "string",
-					"example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
-				}
-			},
-			"additionalProperties": false
-		},
-		"AccessRequestObject": {
-			"required": [
-				"envelope",
-				"envelopeSignature"
-			],
-			"type": "object",
-			"properties": {
-				"envelope": {
-					"$ref": "#/definitions/EnvelopeAccessRequestObject"
-				},
-				"envelopeSignature": {
-					"description": "The signature ot the EnvelopeObject in HEX format without whitespace or linebreaks",
-					"minLength": 1,
-					"pattern": "^(0x)?[A-Fa-f0-9]+$",
-					"type": "string",
-					"example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
-				}
-			},
-			"additionalProperties": false
-		},
-		"AccessResponseObject": {
-			"required": [
-				"message"
-			],
-			"type": "object",
-			"properties": {
-				"transactionIdentifier": {
-					"format": "uuid",
-					"description": "Transaction identifier to be referenced in Access Notification for correlation purposes",
-					"pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
-					"type": "string",
-					"example": "550e8400-e29b-41d4-a716-446655440000"
-				},
-				"message": {
-					"description": "Success or error response message",
-					"minLength": 1,
-					"type": "string"
-				}
-			},
-			"additionalProperties": false
-		},
-		"AckRequestEnum": {
-			"format": "int32",
-			"description": "Acknowledgement request type\r\nNo_ACK_requested (0), Delivered_ACK_requested (1), Opened_ACK_requested (2), Delivered_and_Opened_ACK_requested (3)",
-			"enum": [
-				0,
-				1,
-				2,
-				3
-			],
-			"type": "integer"
-		},
-		"AckTypeEnum": {
-			"format": "int32",
-			"description": "Acknowledgement type\r\nDelivered (0), Opened (1), Error (2)",
-			"enum": [
-				0,
-				1,
-				2
-			],
-			"type": "integer"
-		},
-		"AcknowledgementObject": {
-			"required": [
-				"envelope",
-				"envelopeSignature"
-			],
-			"type": "object",
-			"properties": {
-				"envelope": {
-					"$ref": "#/definitions/EnvelopeAckObject"
-				},
-				"envelopeSignature": {
-					"description": "The signature ot the EnvelopeAckObject in HEX format without whitespace or linebreaks",
-					"minLength": 1,
-					"type": "string"
-				}
-			},
-			"additionalProperties": false
-		},
-		"AcknowledgementResponseObject": {
-			"required": [
-				"message"
-			],
-			"type": "object",
-			"properties": {
-				"code": {
-					"$ref": "#/definitions/Secom_ResponseCodeEnum"
-				},
-				"message": {
-					"description": "Success or error response message",
-					"minLength": 1,
-					"type": "string"
-				}
-			},
-			"additionalProperties": false
-		},
-		"CapabilityObject": {
-			"required": [
-				"containerType",
-				"dataProductType",
-				"implementedInterfaces",
-				"productSchemaUrl",
-				"serviceVersion"
-			],
-			"type": "object",
-			"properties": {
-				"containerType": {
-					"$ref": "#/definitions/ContainerTypeEnum"
-				},
-				"dataProductType": {
-					"description": "Data product type requested, e.g. S-124, S-421, see 5.6.7 in IEC 63173-2 ed2",
-					"minLength": 3,
-					"pattern": "^(S-?\\d{2,3}|RTZ|EPC|ASM)$",
-					"type": "string",
-					"example": "S-124"
-				},
-				"productSchemaUrl": {
-					"description": "The schemaUrl attribute of the S100 Product",
-					"minLength": 1,
-					"type": "string"
-				},
-				"implementedInterfaces": {
-					"$ref": "#/definitions/ImplementedInterfaces"
-				},
-				"serviceVersion": {
-					"description": "Version of service instance, for example New Editions denoted as n.0.0\r\nRevisions denoted as n.n.0\r\nClarifications denoted as n.n.n",
-					"minLength": 1,
-					"type": "string"
-				}
-			},
-			"additionalProperties": false
-		},
-		"CapabilityResponseObject": {
-			"required": [
-				"capability"
-			],
-			"type": "object",
-			"properties": {
-				"capability": {
-					"description": "List of capability objects",
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/CapabilityObject"
-					}
-				}
-			},
-			"additionalProperties": false
-		},
-		"ContainerTypeEnum": {
-			"format": "int32",
-			"description": "Container type, S100_DATASET (0), S100_EXCHANGESET (1), NONE (2)",
-			"enum": [
-				0,
-				1,
-				2
-			],
-			"type": "integer"
-		},
-		"DataResponseObject": {
-			"required": [
-				"ackRequest",
-				"data",
-				"exchangeMetadata"
-			],
-			"type": "object",
-			"properties": {
-				"data": {
-					"format": "byte",
-					"description": "The data according to Product Specification embedded in JSON.The data may be encrypted and signed.",
-					"type": "string"
-				},
-				"exchangeMetadata": {
-					"$ref": "#/definitions/SECOM_ExchangeMetadataObject"
-				},
-				"ackRequest": {
-					"$ref": "#/definitions/AckRequestEnum"
-				}
-			},
-			"additionalProperties": false
-		},
-		"DigitalSignatureValueObject": {
-			"required": [
-				"digitalSignature",
-				"publicCertificate"
-			],
-			"type": "object",
-			"properties": {
-				"publicRootCertificateThumbprint": {
-					"description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) Format: SHA-1 or SHA-256 thumbprint.",
-					"pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
-					"type": "string",
-					"example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
-				},
-				"publicCertificate": {
-					"description": "(S100) Public Key (chain) for claimed identity",
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"digitalSignature": {
-					"description": "(S100) The digital signature in HEX format as one row, no trailing return/new line",
-					"minLength": 1,
-					"pattern": "^(0x)?[A-Fa-f0-9]+$",
-					"type": "string",
-					"example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
-				}
-			},
-			"additionalProperties": false
-		},
-		"EncryptionKeyObject": {
-			"required": [
-				"envelope",
-				"envelopeSignature"
-			],
-			"type": "object",
-			"properties": {
-				"envelope": {
-					"$ref": "#/definitions/EnvelopeKeyObject"
-				},
-				"envelopeSignature": {
-					"description": "The signature ot the EnvelopeKeyObject in HEX format without whitespace or linebreaks",
-					"minLength": 1,
-					"pattern": "^(0x)?[A-Fa-f0-9]+$",
-					"type": "string",
-					"example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
-				}
-			},
-			"additionalProperties": false
-		},
-		"EncryptionKeyRequestObject": {
-			"required": [
-				"envelope",
-				"envelopeSignature"
-			],
-			"type": "object",
-			"properties": {
-				"envelope": {
-					"$ref": "#/definitions/EnvelopeKeyRequestObject"
-				},
-				"envelopeSignature": {
-					"description": "The signature ot the EnvelopeKeyRequestObject in HEX format without whitespace or linebreaks",
-					"minLength": 1,
-					"pattern": "^(0x)?[A-Fa-f0-9]+$",
-					"type": "string",
-					"example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
-				}
-			},
-			"additionalProperties": false
-		},
-		"EncryptionKeyResponseObject": {
-			"required": [
-				"message"
-			],
-			"type": "object",
-			"properties": {
-				"secoM_ResponseCode": {
-					"$ref": "#/definitions/Secom_ResponseCodeEnum"
-				},
-				"message": {
-					"description": "Success or error response message",
-					"minLength": 1,
-					"type": "string"
-				}
-			},
-			"additionalProperties": false
-		},
-		"EnvelopeAccessNotificationObject": {
-			"required": [
-				"decision",
-				"decisionReason",
-				"envelopeRootCertificateThumbprint",
-				"envelopeSignatureCertificate",
-				"envelopeSignatureTime",
-				"transactionIdentifier"
-			],
-			"type": "object",
-			"properties": {
-				"decision": {
-					"description": "Access request decision, yes (true) or no (false)",
-					"type": "boolean"
-				},
-				"decisionReason": {
-					"description": "Human readable reason for decision",
-					"minLength": 1,
-					"type": "string"
-				},
-				"dataReference": {
-					"format": "uuid",
-					"description": "Data reference corresponding to the attribute in AccessRequestObject",
-					"pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
-					"type": "string",
-					"example": "550e8400-e29b-41d4-a716-446655440000"
-				},
-				"transactionIdentifier": {
-					"format": "uuid",
-					"description": "Transaction identifier corresponding to the attribute in AccessResponseObject for correlation purposes",
-					"pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
-					"type": "string",
-					"example": "550e8400-e29b-41d4-a716-446655440000"
-				},
-				"envelopeSignatureCertificate": {
-					"description": "The public certificate(s) of the sender, used to verify the envelope signature",
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"envelopeRootCertificateThumbprint": {
-					"description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
-					"minLength": 1,
-					"pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
-					"type": "string",
-					"example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
-				},
-				"envelopeSignatureTime": {
-					"format": "date-time",
-					"description": "Time when envelope is signed Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				}
-			},
-			"additionalProperties": false
-		},
-		"EnvelopeAccessRequestObject": {
-			"required": [
-				"envelopeRootCertificateThumbprint",
-				"envelopeSignatureCertificate",
-				"envelopeSignatureTime",
-				"reason",
-				"reasonEnum"
-			],
-			"type": "object",
-			"properties": {
-				"reason": {
-					"description": "Human readable reason for requesting access",
-					"minLength": 1,
-					"type": "string"
-				},
-				"reasonEnum": {
-					"$ref": "#/definitions/ReasonEnum"
-				},
-				"containerType": {
-					"$ref": "#/definitions/ContainerTypeEnum"
-				},
-				"dataProductType": {
-					"description": "Data product type requested, e.g. S-124, S-421, see 5.6.7 in IEC 63173-2 ed2",
-					"pattern": "^(S-?\\d{2,3}|RTZ|EPC|ASM)$",
-					"type": "string",
-					"example": "S-124"
-				},
-				"dataReference": {
-					"format": "uuid",
-					"description": "Reference to the data requested access to",
-					"pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
-					"type": "string",
-					"example": "550e8400-e29b-41d4-a716-446655440000"
-				},
-				"productVersion": {
-					"description": "S-100 based Product type version requested, e.g. 1.0.0",
-					"type": "string"
-				},
-				"callbackEndpoint": {
-					"format": "uri",
-					"description": "Base URL without trailing slash to the requestor's SECOM service\r\nAccess notification can be sent to callbackEndpoint/access/notification\r\nIf not available, the Base URL where to send an access notification needs to be available through the search service (see 9.2 in IEC 63173-2 ed2)",
-					"pattern": "^(https?|ftp):\\/\\/([a-zA-Z0-9\\-._~%!$&'()*+,;=]+@)?([a-zA-Z0-9\\-._~]+)(:\\d+)?(\\/[^\\s]*)?$",
-					"type": "string",
-					"example": "https://example.com"
-				},
-				"envelopeSignatureCertificate": {
-					"description": "The public certificate(s) of the sender, used to verify the envelope signature",
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"envelopeRootCertificateThumbprint": {
-					"description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
-					"minLength": 1,
-					"pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
-					"type": "string",
-					"example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
-				},
-				"envelopeSignatureTime": {
-					"format": "date-time",
-					"description": "Time when envelope is signed Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				}
-			},
-			"additionalProperties": false
-		},
-		"EnvelopeAckObject": {
-			"required": [
-				"ackType",
-				"createdAt",
-				"envelopeRootCertificateThumbprint",
-				"envelopeSignatureCertificate",
-				"envelopeSignatureTime",
-				"transactionIdentifier"
-			],
-			"type": "object",
-			"properties": {
-				"createdAt": {
-					"format": "date-time",
-					"description": "Creation time for the acknowledgement Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				},
-				"envelopeSignatureCertificate": {
-					"description": "The public certificate (chain) of the sender. used to verify the envelopeObject signature",
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"envelopeRootCertificateThumbprint": {
-					"description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
-					"minLength": 1,
-					"pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
-					"type": "string",
-					"example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
-				},
-				"transactionIdentifier": {
-					"format": "uuid",
-					"description": "Reference identifier given in upload",
-					"pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
-					"type": "string",
-					"example": "550e8400-e29b-41d4-a716-446655440000"
-				},
-				"ackType": {
-					"$ref": "#/definitions/AckTypeEnum"
-				},
-				"nackType": {
-					"$ref": "#/definitions/NackTypeEnum"
-				},
-				"envelopeSignatureTime": {
-					"format": "date-time",
-					"description": "Time stamp when the envelope is signed Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				}
-			},
-			"additionalProperties": false
-		},
-		"EnvelopeGetByLinkObject": {
-			"required": [
-				"envelopeRootCertificateThumbprint",
-				"envelopeSignatureCertificate",
-				"envelopeSignatureTime"
-			],
-			"type": "object",
-			"properties": {
-				"transactionIdentifier": {
-					"format": "uuid",
-					"description": "Identifier from Upload Link",
-					"pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
-					"type": "string",
-					"example": "550e8400-e29b-41d4-a716-446655440000"
-				},
-				"envelopeSignatureCertificate": {
-					"description": "The public certificate(s) of the sender. Used to verify the envelope signature.",
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"envelopeRootCertificateThumbprint": {
-					"description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
-					"minLength": 1,
-					"pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
-					"type": "string",
-					"example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
-				},
-				"envelopeSignatureTime": {
-					"format": "date-time",
-					"description": "Time when envelope is signed Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				}
-			},
-			"additionalProperties": false
-		},
-		"EnvelopeGetFilterObject": {
-			"required": [
-				"envelopeRootCertificateThumbprint",
-				"envelopeSignatureCertificate",
-				"envelopeSignatureTime"
-			],
-			"type": "object",
-			"properties": {
-				"dataReference": {
-					"format": "uuid",
-					"description": "Reference to information object, e.g. from the GetSummary response",
-					"pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
-					"type": "string",
-					"example": "550e8400-e29b-41d4-a716-446655440000"
-				},
-				"containerType": {
-					"$ref": "#/definitions/ContainerTypeEnum"
-				},
-				"dataProductType": {
-					"description": "Data product type requested, e.g. S-124, S-421, see 5.6.7 in IEC 63173-2 ed2",
-					"pattern": "^(S-?\\d{2,3}|RTZ|EPC|ASM)$",
-					"type": "string",
-					"example": "S-124"
-				},
-				"productVersion": {
-					"description": "S-100 based Product type version, e.g. 1.0.0",
-					"type": "string"
-				},
-				"geometry": {
-					"description": "Geometry condition for geo-located information objects, see Table 12 in IEC 63173-2 ed2",
-					"type": "string"
-				},
-				"unlocode": {
-					"description": "Code of defined object, see 5.6.13 in IEC 63173-2 ed2",
-					"pattern": "^[a-zA-Z]{2}[a-zA-Z2-9]{3}$",
-					"type": "string",
-					"example": "USNYC"
-				},
-				"validFrom": {
-					"format": "date-time",
-					"description": "Valid from time Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				},
-				"validTo": {
-					"format": "date-time",
-					"description": "Valid until time Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				},
-				"page": {
-					"format": "int32",
-					"description": "Requested pagination page",
-					"minimum": 0,
-					"type": "integer",
-					"example": 0
-				},
-				"pageSize": {
-					"format": "int32",
-					"description": "Requested pagination page size",
-					"minimum": 0,
-					"type": "integer",
-					"example": 0
-				},
-				"envelopeSignatureCertificate": {
-					"description": "The public certificate(s) of the sender. Used to verify the envelope signature.",
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"envelopeRootCertificateThumbprint": {
-					"description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
-					"minLength": 1,
-					"pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
-					"type": "string",
-					"example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
-				},
-				"envelopeSignatureTime": {
-					"format": "date-time",
-					"description": "Time stamp when envelope is signed Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				}
-			},
-			"additionalProperties": false
-		},
-		"EnvelopeGetSummaryFilterObject": {
-			"required": [
-				"envelopeRootCertificateThumbprint",
-				"envelopeSignatureCertificate",
-				"envelopeSignatureTime"
-			],
-			"type": "object",
-			"properties": {
-				"containerType": {
-					"$ref": "#/definitions/ContainerTypeEnum"
-				},
-				"dataProductType": {
-					"description": "Data product type requested, e.g. S-124, S-421, see 5.6.7 in IEC 63173-2 ed2",
-					"pattern": "^(S-?\\d{2,3}|RTZ|EPC|ASM)$",
-					"type": "string",
-					"example": "S-124"
-				},
-				"productVersion": {
-					"description": "S-100 based Product type version, e.g. 1.0.0",
-					"type": "string"
-				},
-				"geometry": {
-					"description": "Geometry condition for geo-located information objects, see Table 12 in IEC 63173-2 ed2",
-					"type": "string"
-				},
-				"unlocode": {
-					"description": "Code of defined object, see 5.6.13 in IEC 63173-2 ed2",
-					"pattern": "^[a-zA-Z]{2}[a-zA-Z2-9]{3}$",
-					"type": "string",
-					"example": "USNYC"
-				},
-				"validFrom": {
-					"format": "date-time",
-					"description": "Valid from time Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				},
-				"validTo": {
-					"format": "date-time",
-					"description": "Valid until time Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				},
-				"page": {
-					"format": "int32",
-					"description": "Requested pagination page",
-					"minimum": 0,
-					"type": "integer",
-					"example": 0
-				},
-				"pageSize": {
-					"format": "int32",
-					"description": "Requested pagination page size",
-					"minimum": 0,
-					"type": "integer",
-					"example": 0
-				},
-				"envelopeSignatureCertificate": {
-					"description": "The public certificate(s) of the sender, used to verify the envelope signature",
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"envelopeRootCertificateThumbprint": {
-					"description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
-					"minLength": 1,
-					"pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
-					"type": "string",
-					"example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
-				},
-				"envelopeSignatureTime": {
-					"format": "date-time",
-					"description": "Time when envelope is signed Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				}
-			},
-			"additionalProperties": false
-		},
-		"EnvelopeKeyObject": {
-			"required": [
-				"digitalSignatureValue",
-				"encryptionKey",
-				"envelopeRootCertificateThumbprint",
-				"envelopeSignatureCertificate",
-				"envelopeSignatureTime",
-				"expirationTime",
-				"iv",
-				"transactionIdentifier"
-			],
-			"type": "object",
-			"properties": {
-				"encryptionKey": {
-					"format": "byte",
-					"description": "The protected symmetric encryption key, Base64 encoded\r\nExample : KQdEi+9iUlq8B9cwWY...U8A2iDPhz7g==",
-					"type": "string"
-				},
-				"iv": {
-					"format": "byte",
-					"description": "Initialization vector, Base64 encoded\r\nExample: c9fUXeC5xrFuXGNNnGv9iA==",
-					"type": "string"
-				},
-				"transactionIdentifier": {
-					"format": "uuid",
-					"description": "Identifier to the transaction with the encrypted data",
-					"pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
-					"type": "string",
-					"example": "550e8400-e29b-41d4-a716-446655440000"
-				},
-				"digitalSignatureValue": {
-					"$ref": "#/definitions/DigitalSignatureValueObject"
-				},
-				"envelopeSignatureCertificate": {
-					"description": "The public certificate(s) of the sender, used to verify the EnvelopeKeyObject signature",
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"envelopeRootCertificateThumbprint": {
-					"description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
-					"minLength": 1,
-					"pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
-					"type": "string",
-					"example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
-				},
-				"envelopeSignatureTime": {
-					"format": "date-time",
-					"description": "Time when encryptionKey envelope is signed Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				},
-				"expirationTime": {
-					"description": "Expiry time in UTC for the temporaty key",
-					"minLength": 1,
-					"type": "string"
-				}
-			},
-			"additionalProperties": false
-		},
-		"EnvelopeKeyRequestObject": {
-			"required": [
-				"dataReference",
-				"envelopeRootCertificateThumbprint",
-				"envelopeSignatureCertificate",
-				"envelopeSignatureTime",
-				"publicCertificate"
-			],
-			"type": "object",
-			"properties": {
-				"dataReference": {
-					"format": "uuid",
-					"description": "Information identifier retrieved by using reference from response in Get Summary request (UUID)",
-					"pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
-					"type": "string",
-					"example": "550e8400-e29b-41d4-a716-446655440000"
-				},
-				"publicCertificate": {
-					"description": "Public certificate of data consumer for deriving shared symmetric key",
-					"minLength": 1,
-					"type": "string"
-				},
-				"envelopeSignatureCertificate": {
-					"description": "The public certificate(s) of the sender, used to verify the EnvelopeKeyRequestObject signature Key (X.509 Certificate)",
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"envelopeSignatureTime": {
-					"format": "date-time",
-					"description": "Time when encryptionKey envelope is signed Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				},
-				"envelopeRootCertificateThumbprint": {
-					"description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
-					"minLength": 1,
-					"pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
-					"type": "string",
-					"example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
-				},
-				"callbackEndpoint": {
-					"format": "uri",
-					"description": "Base URL without trailing slash to the requestor SECOM service\r\nThe encryption key is sent asynchronously to callbackEndpoint/encryptionkey\r\nIf not available, the Base URL needs to be available in service registry for lookup",
-					"pattern": "^(https?|ftp):\\/\\/([a-zA-Z0-9\\-._~%!$&'()*+,;=]+@)?([a-zA-Z0-9\\-._~]+)(:\\d+)?(\\/[^\\s]*)?$",
-					"type": "string",
-					"example": "https://example.com"
-				}
-			},
-			"additionalProperties": false
-		},
-		"EnvelopeLinkObject": {
-			"required": [
-				"ackRequest",
-				"containerType",
-				"dataProductType",
-				"envelopeRootCertificateThumbprint",
-				"envelopeSignatureCertificate",
-				"envelopeSignatureTime",
-				"exchangeMetadata",
-				"size",
-				"timeToLive",
-				"transactionIdentifier"
-			],
-			"type": "object",
-			"properties": {
-				"containerType": {
-					"$ref": "#/definitions/ContainerTypeEnum"
-				},
-				"dataProductType": {
-					"description": "Data product type requested, e.g. S-124, S-421, see 5.6.7 in IEC 63173-2 ed2",
-					"minLength": 3,
-					"pattern": "^(S-?\\d{2,3}|RTZ|EPC|ASM)$",
-					"type": "string",
-					"example": "S-124"
-				},
-				"exchangeMetadata": {
-					"$ref": "#/definitions/SECOM_ExchangeMetadataObject"
-				},
-				"subscriptionIdentifier": {
-					"format": "uuid",
-					"description": "Subscription identifier is specified if the object is uploaded within a subscription.",
-					"pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
-					"type": "string",
-					"example": "550e8400-e29b-41d4-a716-446655440000"
-				},
-				"ackRequest": {
-					"$ref": "#/definitions/AckRequestEnum"
-				},
-				"callbackEndpoint": {
-					"format": "uri",
-					"description": "Base URL without trailing slash to the requestor SECOM service\r\nAcknowledgement can be sent to callbackEndpoint/acknowledgement\r\nIf not available, the Base URL needs to be available through the search service (see 9.2 in IEC 63173-2 ed2)",
-					"pattern": "^(https?|ftp):\\/\\/([a-zA-Z0-9\\-._~%!$&'()*+,;=]+@)?([a-zA-Z0-9\\-._~]+)(:\\d+)?(\\/[^\\s]*)?$",
-					"type": "string",
-					"example": "https://example.com"
-				},
-				"transactionIdentifier": {
-					"format": "uuid",
-					"description": "Transaction identifier to be used e.g. in acknowledgement",
-					"pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
-					"type": "string",
-					"example": "550e8400-e29b-41d4-a716-446655440000"
-				},
-				"envelopeSignatureCertificate": {
-					"description": "The public certificate(s) of the sender, used to verify the envelopeObject signature",
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"envelopeRootCertificateThumbprint": {
-					"description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
-					"minLength": 1,
-					"pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
-					"type": "string",
-					"example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
-				},
-				"size": {
-					"format": "int32",
-					"description": "Approximated maximum size of the data file in kBytes to be downloaded.",
-					"type": "integer"
-				},
-				"timeToLive": {
-					"format": "date-time",
-					"description": "DateTime when data will be deleted on server. The data need to be fetched before this time. Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				},
-				"envelopeSignatureTime": {
-					"format": "date-time",
-					"description": "Time stamp when the envelope is signed Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				}
-			},
-			"additionalProperties": false
-		},
-		"EnvelopePublicKeyFilterObject": {
-			"required": [
-				"envelopeRootCertificateThumbprint",
-				"envelopeSignatureCertificate",
-				"envelopeSignatureTime"
-			],
-			"type": "object",
-			"properties": {
-				"dataProtection": {
-					"description": "Flag indicating public certificate needed for encryption key exchange (true) or for signing (false)",
-					"type": "boolean"
-				},
-				"certificateThumbprint": {
-					"description": "Claimed Thumbprint for Signed Key (X.509 Certificate)",
-					"type": "string"
-				},
-				"envelopeSignatureCertificate": {
-					"description": "The public certificate(s) of the sender, used to verify the envelope signature",
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"envelopeRootCertificateThumbprint": {
-					"description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
-					"minLength": 1,
-					"pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
-					"type": "string",
-					"example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
-				},
-				"envelopeSignatureTime": {
-					"format": "date-time",
-					"description": "Time when envelope is signed",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				}
-			},
-			"additionalProperties": false
-		},
-		"EnvelopePublicKeyRequestObject": {
-			"required": [
-				"envelopeRootCertificateThumbprint",
-				"envelopeSignatureCertificate",
-				"envelopeSignatureTime",
-				"publicCertificate"
-			],
-			"type": "object",
-			"properties": {
-				"publicCertificate": {
-					"description": "Public certificate(s) x.509 in PEM format, Base64 encoded byte array.",
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"envelopeSignatureCertificate": {
-					"description": "The public certificate(s) of the sender, used to verify the envelope signature",
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"envelopeRootCertificateThumbprint": {
-					"description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
-					"minLength": 1,
-					"pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
-					"type": "string",
-					"example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
-				},
-				"envelopeSignatureTime": {
-					"format": "date-time",
-					"description": "Time when envelope is signed Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				}
-			},
-			"additionalProperties": false
-		},
-		"EnvelopePublicKeyResponseObject": {
-			"required": [
-				"envelopeRootCertificateThumbprint",
-				"envelopeSignatureCertificate",
-				"envelopeSignatureTime",
-				"publicCertificate"
-			],
-			"type": "object",
-			"properties": {
-				"publicCertificate": {
-					"description": "List of public certificates x.509 in PEM format, Base64 encoded byte array.",
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"envelopeSignatureCertificate": {
-					"description": "The public certificate(s) of the sender, used to verify the envelope signature",
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"envelopeRootCertificateThumbprint": {
-					"description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
-					"minLength": 1,
-					"pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
-					"type": "string",
-					"example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
-				},
-				"envelopeSignatureTime": {
-					"format": "date-time",
-					"description": "Time when envelope is signed",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				}
-			},
-			"additionalProperties": false
-		},
-		"EnvelopeRemoveSubscriptionObject": {
-			"required": [
-				"envelopeRootCertificateThumbprint",
-				"envelopeSignatureCertificate",
-				"envelopeSignatureTime",
-				"subscriptionIdentifier"
-			],
-			"type": "object",
-			"properties": {
-				"subscriptionIdentifier": {
-					"format": "uuid",
-					"description": "Subscription identifier to the subscription to be removed. Received in subscription request or subscription notification.",
-					"pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
-					"type": "string",
-					"example": "550e8400-e29b-41d4-a716-446655440000"
-				},
-				"envelopeSignatureCertificate": {
-					"description": "The public certificate(s) of the sender, used to verify the envelope signature",
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"envelopeRootCertificateThumbprint": {
-					"description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
-					"minLength": 1,
-					"pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
-					"type": "string",
-					"example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
-				},
-				"envelopeSignatureTime": {
-					"format": "date-time",
-					"description": "Time when envelope is signed Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				}
-			},
-			"additionalProperties": false
-		},
-		"EnvelopeSubscriptionNotificationObject": {
-			"required": [
-				"envelopeRootCertificateThumbprint",
-				"envelopeSignatureCertificate",
-				"envelopeSignatureTime",
-				"eventEnum",
-				"subscriptionIdentifier"
-			],
-			"type": "object",
-			"properties": {
-				"subscriptionIdentifier": {
-					"format": "uuid",
-					"description": "Identifier of the subscription",
-					"pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
-					"type": "string",
-					"example": "550e8400-e29b-41d4-a716-446655440000"
-				},
-				"eventEnum": {
-					"$ref": "#/definitions/SubscriptionEventEnum"
-				},
-				"envelopeSignatureCertificate": {
-					"description": "The public certificate(s) of the sender, used to verify the envelope signature",
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"envelopeRootCertificateThumbprint": {
-					"description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
-					"minLength": 1,
-					"pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
-					"type": "string",
-					"example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
-				},
-				"envelopeSignatureTime": {
-					"format": "date-time",
-					"description": "Time when envelope is signed Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				}
-			},
-			"additionalProperties": false
-		},
-		"EnvelopeSubscriptionObject": {
-			"required": [
-				"envelopeRootCertificateThumbprint",
-				"envelopeSignatureCertificate",
-				"envelopeSignatureTime"
-			],
-			"type": "object",
-			"properties": {
-				"containerType": {
-					"$ref": "#/definitions/ContainerTypeEnum"
-				},
-				"dataProductType": {
-					"description": "Data product type name requested, e.g. S-124, S-421, see 5.6.7 in IEC 63173-2 ed2",
-					"minLength": 3,
-					"pattern": "^(S-?\\d{2,3}|RTZ|EPC|ASM)$",
-					"type": "string",
-					"example": "S-124"
-				},
-				"dataReference": {
-					"format": "uuid",
-					"description": "Reference to data",
-					"pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
-					"type": "string",
-					"example": "550e8400-e29b-41d4-a716-446655440000"
-				},
-				"productVersion": {
-					"description": "S-100 based Product type version requested, e.g. 1.0.0",
-					"type": "string"
-				},
-				"geometry": {
-					"description": "Geometry condition for geolocated information objects as criteria, see Table 12 in IEC 63173-2 ed2",
-					"type": "string"
-				},
-				"unlocode": {
-					"description": "Code of defined object, see 5.6.13 in IEC 63173-2 ed2",
-					"type": "string"
-				},
-				"subscriptionPeriodStart": {
-					"format": "date-time",
-					"description": "Start time of subscription Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				},
-				"subscriptionPeriodEnd": {
-					"format": "date-time",
-					"description": "End time of subscription Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				},
-				"callbackEndpoint": {
-					"format": "uri",
-					"description": "Base URL without trailing slash to the requestor's SECOM service\r\nMessages within subscription are sent to callbackEndpoint/object\r\nIf not available, the Base URL needs to be available through search service (see 9.2 in IEC 63173-2 ed2)",
-					"pattern": "^(https?|ftp):\\/\\/([a-zA-Z0-9\\-._~%!$&'()*+,;=]+@)?([a-zA-Z0-9\\-._~]+)(:\\d+)?(\\/[^\\s]*)?$",
-					"type": "string",
-					"example": "https://example.com"
-				},
-				"pushAll": {
-					"description": "Flag for sending an initial set of data within requested subscription and then start the subscription.\r\nIf false, only data updates from the start of the subscription will be sent.",
-					"type": "boolean"
-				},
-				"envelopeSignatureCertificate": {
-					"description": "The public certificate(s) of the sender, used to verify the envelope signature",
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"envelopeRootCertificateThumbprint": {
-					"description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
-					"minLength": 1,
-					"pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
-					"type": "string",
-					"example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
-				},
-				"envelopeSignatureTime": {
-					"format": "date-time",
-					"description": "Time when envelope is signed Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				}
-			},
-			"additionalProperties": false
-		},
-		"EnvelopeUploadObject": {
-			"required": [
-				"ackRequest",
-				"containerType",
-				"data",
-				"dataProductType",
-				"envelopeRootCertificateThumbprint",
-				"envelopeSignatureCertificate",
-				"envelopeSignatureTime",
-				"exchangeMetadata",
-				"transactionIdentifier"
-			],
-			"type": "object",
-			"properties": {
-				"data": {
-					"format": "byte",
-					"description": "The payload XML dataProductType, base64 encoded (e.g. inside a S100_ExchangeSet, S100_DataSet), ZIP or binary The data can be open, protected and/or compressed.",
-					"type": "string"
-				},
-				"containerType": {
-					"$ref": "#/definitions/ContainerTypeEnum"
-				},
-				"dataProductType": {
-					"description": "Data product type requested, e.g. S-124, S-421, see 5.6.7 in IEC 63173-2 ed2",
-					"minLength": 3,
-					"pattern": "^(S-?\\d{2,3}|RTZ|EPC|ASM)$",
-					"type": "string",
-					"example": "S-124"
-				},
-				"exchangeMetadata": {
-					"$ref": "#/definitions/SECOM_ExchangeMetadataObject"
-				},
-				"subscriptionIdentifier": {
-					"format": "uuid",
-					"description": "Subscription identifier is specified if the object is uploaded within a subscription.",
-					"pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
-					"type": "string",
-					"example": "550e8400-e29b-41d4-a716-446655440000"
-				},
-				"ackRequest": {
-					"$ref": "#/definitions/AckRequestEnum"
-				},
-				"callbackEndpoint": {
-					"format": "uri",
-					"description": "Base URL without trailing slash to the requestor SECOM service\r\nAcknowledgement can be sent to callbackEndpoint/acknowledgement\r\nIf not available, the Base URL needs to be available through the search service (see 9.2 in IEC 63173-2 ed2)",
-					"pattern": "^(https?|ftp):\\/\\/([a-zA-Z0-9\\-._~%!$&'()*+,;=]+@)?([a-zA-Z0-9\\-._~]+)(:\\d+)?(\\/[^\\s]*)?$",
-					"type": "string",
-					"example": "https://example.com"
-				},
-				"transactionIdentifier": {
-					"format": "uuid",
-					"description": "Transaction identifier to be used e.g. in acknowledgement",
-					"pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
-					"type": "string",
-					"example": "550e8400-e29b-41d4-a716-446655440000"
-				},
-				"envelopeSignatureCertificate": {
-					"description": "The public certificate(s) of the sender, used to verify the envelopeObject signature",
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"envelopeRootCertificateThumbprint": {
-					"description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
-					"minLength": 1,
-					"pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
-					"type": "string",
-					"example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
-				},
-				"envelopeSignatureTime": {
-					"format": "date-time",
-					"description": "Time stamp when the envelope is signed Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				}
-			},
-			"additionalProperties": false
-		},
-		"GetByLinkObject": {
-			"type": "object",
-			"properties": {
-				"envelope": {
-					"$ref": "#/definitions/EnvelopeGetByLinkObject"
-				},
-				"envelopeSignature": {
-					"description": "The signature of the EnvelopeGetByLinkObject in HEX format without whitespace or linebreaks",
-					"type": "string"
-				}
-			},
-			"additionalProperties": false
-		},
-		"GetFilterObject": {
-			"type": "object",
-			"properties": {
-				"envelope": {
-					"$ref": "#/definitions/EnvelopeGetFilterObject"
-				},
-				"envelopeSignature": {
-					"description": "The signature of the EnvelopeGetFilterObject in HEX format without whitespace or linebreaks",
-					"type": "string"
-				}
-			},
-			"additionalProperties": false
-		},
-		"GetResponseObject": {
-			"required": [
-				"dataResponseObject",
-				"pagination"
-			],
-			"type": "object",
-			"properties": {
-				"dataResponseObject": {
-					"description": "The data according to Product Specification embedded in JSON.The data may be encrypted and signed.",
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/DataResponseObject"
-					}
-				},
-				"pagination": {
-					"$ref": "#/definitions/PaginationObject"
-				}
-			},
-			"additionalProperties": false
-		},
-		"GetSummaryFilterObject": {
-			"type": "object",
-			"properties": {
-				"envelope": {
-					"$ref": "#/definitions/EnvelopeGetSummaryFilterObject"
-				},
-				"envelopeSignature": {
-					"description": "The signature of the EnvelopeGetSummaryFilterObject in HEX format without whitespace or linebreaks",
-					"type": "string"
-				}
-			},
-			"additionalProperties": false
-		},
-		"GetSummaryResponseObject": {
-			"required": [
-				"pagination",
-				"summaryObject"
-			],
-			"type": "object",
-			"properties": {
-				"summaryObject": {
-					"description": "Description of the information object",
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/SummaryObject"
-					}
-				},
-				"pagination": {
-					"$ref": "#/definitions/PaginationObject"
-				}
-			},
-			"additionalProperties": false
-		},
-		"ImplementedInterfaces": {
-			"description": "Available interfaces for the SECOM API\r\nUpload = true means that the interface Upload is implemented and so on",
-			"type": "object",
-			"properties": {
-				"upload": {
-					"type": "boolean"
-				},
-				"uploadLink": {
-					"type": "boolean"
-				},
-				"get": {
-					"type": "boolean"
-				},
-				"getByLink": {
-					"type": "boolean"
-				},
-				"getSummary": {
-					"type": "boolean"
-				},
-				"subscription": {
-					"type": "boolean"
-				},
-				"access": {
-					"type": "boolean"
-				},
-				"encryptionKey": {
-					"type": "boolean"
-				},
-				"publicKey": {
-					"type": "boolean"
-				}
-			},
-			"additionalProperties": false
-		},
-		"NackTypeEnum": {
-			"format": "int32",
-			"description": "NACK type\r\nXMLSchemaValidationError (0), UnknownDataProductTypeOrVersion (1), FailedSignatureVerification (2), FailedDecryption (3), FailedDecompression (4)",
-			"enum": [
-				0,
-				1,
-				2,
-				3,
-				4
-			],
-			"type": "integer"
-		},
-		"PaginationObject": {
-			"required": [
-				"maxItemsPerPage",
-				"totalItems"
-			],
-			"type": "object",
-			"properties": {
-				"totalItems": {
-					"format": "int32",
-					"description": "The total number of items that satisfy the query. This is always returned unless the requested page is set to 0.",
-					"minimum": 0,
-					"type": "integer",
-					"example": 0
-				},
-				"maxItemsPerPage": {
-					"format": "int32",
-					"description": "The maximum number of items the service shall return per page.",
-					"minimum": 0,
-					"type": "integer",
-					"example": 0
-				}
-			},
-			"additionalProperties": false
-		},
-		"PingResponseObject": {
-			"type": "object",
-			"properties": {
-				"timestamp": {
-					"format": "date-time",
-					"description": "Describes the time of response Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				}
-			},
-			"additionalProperties": false
-		},
-		"PublicKeyFilterObject": {
-			"type": "object",
-			"properties": {
-				"envelope": {
-					"$ref": "#/definitions/EnvelopePublicKeyFilterObject"
-				},
-				"envelopeSignature": {
-					"description": "The signature ot the EnvelopeObject in HEX format without whitespace or linebreaks",
-					"type": "string"
-				}
-			},
-			"additionalProperties": false
-		},
-		"PublicKeyRequestObject": {
-			"required": [
-				"envelope",
-				"envelopeSignature"
-			],
-			"type": "object",
-			"properties": {
-				"envelope": {
-					"$ref": "#/definitions/EnvelopePublicKeyRequestObject"
-				},
-				"envelopeSignature": {
-					"description": "The signature ot the EnvelopeObject in HEX format without whitespace or linebreaks",
-					"minLength": 1,
-					"pattern": "^(0x)?[A-Fa-f0-9]+$",
-					"type": "string",
-					"example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
-				}
-			},
-			"additionalProperties": false
-		},
-		"PublicKeyResponseObject": {
-			"required": [
-				"envelope",
-				"envelopeSignature"
-			],
-			"type": "object",
-			"properties": {
-				"envelope": {
-					"$ref": "#/definitions/EnvelopePublicKeyResponseObject"
-				},
-				"envelopeSignature": {
-					"description": "The signature ot the EnvelopeObject in HEX format without whitespace or linebreaks",
-					"minLength": 1,
-					"pattern": "^(0x)?[A-Fa-f0-9]+$",
-					"type": "string",
-					"example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
-				}
-			},
-			"additionalProperties": false
-		},
-		"ReasonEnum": {
-			"format": "int32",
-			"description": "Reason for access request\r\nRequiredByAuthority (0), RequiredByServiceProvider (1)",
-			"enum": [
-				0,
-				1
-			],
-			"type": "integer"
-		},
-		"RemoveSubscriptionObject": {
-			"required": [
-				"envelope",
-				"envelopeSignature"
-			],
-			"type": "object",
-			"properties": {
-				"envelope": {
-					"$ref": "#/definitions/EnvelopeRemoveSubscriptionObject"
-				},
-				"envelopeSignature": {
-					"description": "The signature ot the EnvelopeRemoveSubscriptionObject in HEX format without whitespace or linebreaks",
-					"minLength": 1,
-					"pattern": "^(0x)?[A-Fa-f0-9]+$",
-					"type": "string",
-					"example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
-				}
-			},
-			"additionalProperties": false
-		},
-		"ResponseObject": {
-			"required": [
-				"message"
-			],
-			"type": "object",
-			"properties": {
-				"message": {
-					"description": "Success or error response message",
-					"minLength": 1,
-					"type": "string"
-				}
-			},
-			"additionalProperties": false
-		},
-		"SECOM_ExchangeMetadataObject": {
-			"description": "The exchange metadata contains information regarding protection scheme, compression, signature and claimed identity.",
-			"required": [
-				"compressionFlag",
-				"dataProtection",
-				"digitalSignatureValue"
-			],
-			"type": "object",
-			"properties": {
-				"dataProtection": {
-					"description": "(S-100) Indicates if the data is encrypted. \r\n0 indicates unencrypted data\r\n1 indicates encrypted data",
-					"type": "boolean"
-				},
-				"digitalSignatureValue": {
-					"$ref": "#/definitions/DigitalSignatureValueObject"
-				},
-				"compressionFlag": {
-					"description": "(S-100) Indicates if data is compressed.\r\n0 indicates uncompressed\r\n1 indicates compressed",
-					"type": "boolean"
-				}
-			},
-			"additionalProperties": false
-		},
-		"Secom_ResponseCodeEnum": {
-			"format": "int32",
-			"enum": [
-				0,
-				1,
-				2,
-				3
-			],
-			"type": "integer"
-		},
-		"SubscriptionEventEnum": {
-			"format": "int32",
-			"description": "Subscription event type\r\nCreate (1), Delete (2)",
-			"enum": [
-				1,
-				2
-			],
-			"type": "integer"
-		},
-		"SubscriptionNotificationObject": {
-			"required": [
-				"envelope",
-				"envelopeSignature"
-			],
-			"type": "object",
-			"properties": {
-				"envelope": {
-					"$ref": "#/definitions/EnvelopeSubscriptionNotificationObject"
-				},
-				"envelopeSignature": {
-					"description": "The signature ot the EnvelopeSubscriptionNotificationObject in HEX format without whitespace or linebreaks",
-					"minLength": 1,
-					"pattern": "^(0x)?[A-Fa-f0-9]+$",
-					"type": "string",
-					"example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
-				}
-			},
-			"additionalProperties": false
-		},
-		"SubscriptionRequestObject": {
-			"required": [
-				"envelope",
-				"envelopeSignature"
-			],
-			"type": "object",
-			"properties": {
-				"envelope": {
-					"$ref": "#/definitions/EnvelopeSubscriptionObject"
-				},
-				"envelopeSignature": {
-					"description": "The signature of the EnvelopSubscriptionObject in HEX format without whitespace or linebreaks",
-					"minLength": 1,
-					"pattern": "^(0x)?[A-Fa-f0-9]+$",
-					"type": "string",
-					"example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
-				}
-			},
-			"additionalProperties": false
-		},
-		"SubscriptionResponseObject": {
-			"required": [
-				"message",
-				"subscriptionIdentifier"
-			],
-			"type": "object",
-			"properties": {
-				"message": {
-					"description": "Success or error response message",
-					"minLength": 1,
-					"type": "string"
-				},
-				"subscriptionIdentifier": {
-					"format": "uuid",
-					"description": "Subscription identifier, if successful",
-					"pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
-					"type": "string",
-					"example": "550e8400-e29b-41d4-a716-446655440000"
-				}
-			},
-			"additionalProperties": false
-		},
-		"SummaryObject": {
-			"required": [
-				"dataCompression",
-				"dataProtection",
-				"dataReference",
-				"info_Description"
-			],
-			"type": "object",
-			"properties": {
-				"dataReference": {
-					"format": "uuid",
-					"description": "Reference to data",
-					"minLength": 1,
-					"pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
-					"type": "string",
-					"example": "550e8400-e29b-41d4-a716-446655440000"
-				},
-				"dataProtection": {
-					"description": "Flag indicating if data is encrypted or not",
-					"type": "boolean"
-				},
-				"dataCompression": {
-					"description": "Flag indicating if data is compressed or not",
-					"type": "boolean"
-				},
-				"containerType": {
-					"$ref": "#/definitions/ContainerTypeEnum"
-				},
-				"dataProductType": {
-					"description": "Data product type name requested, e.g. S-124, S-421",
-					"minLength": 3,
-					"pattern": "^(S-?\\d{2,3}|RTZ|EPC|ASM)$",
-					"type": "string",
-					"example": "S-124"
-				},
-				"info_productVersion": {
-					"description": "S-100 based Product version e.g. 1.0.0",
-					"type": "string"
-				},
-				"info_identifier": {
-					"description": "Identifier of the information object",
-					"type": "string"
-				},
-				"info_name": {
-					"description": "Name of the information object",
-					"type": "string"
-				},
-				"info_Status": {
-					"description": "Status of the information object",
-					"type": "string"
-				},
-				"info_Description": {
-					"description": "Description of the information object",
-					"minLength": 1,
-					"type": "string"
-				},
-				"info_lastModifiedDate": {
-					"format": "date-time",
-					"description": "Date for last modified Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
-					"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
-					"type": "string",
-					"example": "2025-04-28T14:30:00Z"
-				},
-				"info_size": {
-					"format": "int32",
-					"description": "Size of the data",
-					"minimum": 0,
-					"type": "integer",
-					"example": 0
-				}
-			},
-			"additionalProperties": false
-		},
-		"UploadLinkObject": {
-			"required": [
-				"envelope",
-				"envelopeSignature"
-			],
-			"type": "object",
-			"properties": {
-				"envelope": {
-					"$ref": "#/definitions/EnvelopeLinkObject"
-				},
-				"envelopeSignature": {
-					"description": "The signature of the EnvelopeLinkObject in HEX format without whitespace or linebreaks",
-					"minLength": 1,
-					"pattern": "^(0x)?[A-Fa-f0-9]+$",
-					"type": "string",
-					"example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
-				}
-			},
-			"additionalProperties": false
-		},
-		"UploadObject": {
-			"required": [
-				"envelope",
-				"envelopeSignature"
-			],
-			"type": "object",
-			"properties": {
-				"envelope": {
-					"$ref": "#/definitions/EnvelopeUploadObject"
-				},
-				"envelopeSignature": {
-					"description": "The signature ot the EnvelopeUploadObject in HEX format without whitespace or linebreaks",
-					"minLength": 1,
-					"pattern": "^(0x)?[A-Fa-f0-9]+$",
-					"type": "string",
-					"example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
-				}
-			},
-			"additionalProperties": false
-		},
-		"UploadResponseObject": {
-			"required": [
-				"message"
-			],
-			"type": "object",
-			"properties": {
-				"secoM_ResponseCode": {
-					"$ref": "#/definitions/Secom_ResponseCodeEnum"
-				},
-				"message": {
-					"description": "Success or error response message",
-					"minLength": 1,
-					"type": "string"
-				}
-			},
-			"additionalProperties": false
-		}
-	}
+  "swagger": "2.0",
+  "info": {
+    "title": "SECOM Information Service interface",
+    "description": "Compliant with SECOM v2.0",
+    "contact": {
+      "name": "IEC TC80 WG17 Convenor Mr Kwangil Lee",
+      "url": "https://iec.ch/dyn/www/f?p=103:14:206311384503473::::FSP_ORG_ID:13085"
+    },
+    "version": "v2"
+  },
+  "paths": {
+    "/v2/access": {
+      "post": {
+        "tags": [
+          "Access"
+        ],
+        "summary": "Access to information can be requested through the Access interface.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "AccessRequestObject",
+            "schema": {
+              "$ref": "#/definitions/AccessRequestObject"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "AccessResponseObject",
+            "schema": {
+              "$ref": "#/definitions/AccessResponseObject"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "501": {
+            "description": "Not implemented",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          }
+        }
+      }
+    },
+    "/v2/access/notification": {
+      "post": {
+        "tags": [
+          "Access"
+        ],
+        "summary": "Response to Access Request with decision shall be sent asynchronous through this interface.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "AccessNotificationObject",
+            "schema": {
+              "$ref": "#/definitions/AccessNotificationObject"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ResponseObject",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "501": {
+            "description": "Not implemented",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          }
+        }
+      }
+    },
+    "/v2/acknowledgement": {
+      "post": {
+        "tags": [
+          "Acknowledgement"
+        ],
+        "summary": "Upload acknowledgement for previously sent message",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "AcknowledgementObject with reference to information and time when delivered",
+            "schema": {
+              "$ref": "#/definitions/AcknowledgementObject"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully received ACK for message *transactionIdentifier*",
+            "schema": {
+              "$ref": "#/definitions/AcknowledgementResponseObject"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/AcknowledgementResponseObject"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "403": {
+            "description": "Not authorized to upload ACK",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "501": {
+            "description": "Not implemented",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          }
+        }
+      }
+    },
+    "/v2/capability": {
+      "get": {
+        "tags": [
+          "Capability"
+        ],
+        "summary": "The purpose of the interface is to provide a dynamic method to ask a service instance at runtime what interfaces that are accessible, and what payload formats and version that are valid.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "CapabilityResponseObject",
+            "schema": {
+              "$ref": "#/definitions/CapabilityResponseObject"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          }
+        }
+      }
+    },
+    "/v2/encryptionKey/request": {
+      "post": {
+        "tags": [
+          "EncryptionKey"
+        ],
+        "summary": "This operation requests an encrypted secret key from a producer. The response is sent asynchronously through the consumer’s POST key operation.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "EncryptionKeyRequestObject",
+            "schema": {
+              "$ref": "#/definitions/EncryptionKeyRequestObject"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "EncryptionKeyResponseObject, request accepted",
+            "schema": {
+              "$ref": "#/definitions/EncryptionKeyResponseObject"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/EncryptionKeyResponseObject"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/EncryptionKeyResponseObject"
+            }
+          },
+          "403": {
+            "description": "Not authorized",
+            "schema": {
+              "$ref": "#/definitions/EncryptionKeyResponseObject"
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "schema": {
+              "$ref": "#/definitions/EncryptionKeyResponseObject"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/EncryptionKeyResponseObject"
+            }
+          },
+          "501": {
+            "description": "Method not implemented",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          }
+        }
+      }
+    },
+    "/v2/encryptionKey": {
+      "post": {
+        "tags": [
+          "EncryptionKey"
+        ],
+        "summary": "The purpose of the interface is to exchange a temporary secret key.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "EncryptionKeyObject with the symmetric encryption key",
+            "schema": {
+              "$ref": "#/definitions/EncryptionKeyObject"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EncryptionKeyResponseObject",
+            "schema": {
+              "$ref": "#/definitions/EncryptionKeyResponseObject"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/EncryptionKeyResponseObject"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/EncryptionKeyResponseObject"
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "schema": {
+              "$ref": "#/definitions/EncryptionKeyResponseObject"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/EncryptionKeyResponseObject"
+            }
+          },
+          "501": {
+            "description": "Method not implemented",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "403": {
+            "description": "Not authorized"
+          }
+        }
+      }
+    },
+    "/v2/object/search": {
+      "post": {
+        "tags": [
+          "Get"
+        ],
+        "summary": "The Get interface is used for pulling information from a service provider.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "GetFilterObject",
+            "schema": {
+              "$ref": "#/definitions/GetFilterObject"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "GetResponseObject",
+            "schema": {
+              "$ref": "#/definitions/GetResponseObject"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "403": {
+            "description": "Not authorized to requested information",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "404": {
+            "description": "Information not found",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "501": {
+            "description": "Not implemented",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          }
+        }
+      }
+    },
+    "/v2/object/search/summary": {
+      "post": {
+        "tags": [
+          "Get"
+        ],
+        "summary": "A list of information shall be returned from this interface. The list contains identity, status and short description of each information object.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "GetSummaryFilterObject",
+            "schema": {
+              "$ref": "#/definitions/GetSummaryFilterObject"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "GetSummaryResponseObject",
+            "schema": {
+              "$ref": "#/definitions/GetSummaryResponseObject"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "403": {
+            "description": "Not authorized to requested information",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "404": {
+            "description": "Information not found",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "501": {
+            "description": "Not implemented",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          }
+        }
+      }
+    },
+    "/v2/object/search/link": {
+      "post": {
+        "tags": [
+          "Get"
+        ],
+        "summary": "The Get By Link interface is used for pulling information from a data storage handled by the information owner.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "GetByLinkObject",
+            "schema": {
+              "$ref": "#/definitions/GetByLinkObject"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The data payload Base64",
+            "schema": {
+              "format": "byte",
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/UploadResponseObject"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "403": {
+            "description": "Not authorized to requested information",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "404": {
+            "description": "Information with reference *dataReference* not found",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "501": {
+            "description": "Not implemented",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          }
+        }
+      }
+    },
+    "/v2/ping": {
+      "get": {
+        "tags": [
+          "Ping"
+        ],
+        "summary": "The purpose of the interface is to provide a dynamic method to ask for the technical status (version and last interaction time) of the specific service instance.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "PingResponseObject",
+            "schema": {
+              "$ref": "#/definitions/PingResponseObject"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          }
+        }
+      }
+    },
+    "/v2/publicKey/download": {
+      "post": {
+        "tags": [
+          "PublicKey"
+        ],
+        "summary": "The purpose of the interface is to request a public key",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/PublicKeyFilterObject"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PublicKeyResponseObject",
+            "schema": {
+              "$ref": "#/definitions/PublicKeyResponseObject"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "403": {
+            "description": "Not authorized to requested information",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "404": {
+            "description": "Public key not found",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "501": {
+            "description": "Not implemented",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          }
+        }
+      }
+    },
+    "/v2/publicKey/upload": {
+      "post": {
+        "tags": [
+          "PublicKey"
+        ],
+        "summary": "The purpose of this interface is to receive a public key",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "PublicKeyRequestObject",
+            "schema": {
+              "$ref": "#/definitions/PublicKeyRequestObject"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PublicKeyResponseObject",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "501": {
+            "description": "Not implemented",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          }
+        }
+      }
+    },
+    "/v2/subscription": {
+      "post": {
+        "tags": [
+          "Subscription"
+        ],
+        "summary": "The purpose of the interface is to request subscription on information, either specific information according to parameters, or the information accessible upon decision by information provider.\r\nSpecific id on the information object subscription is requested for specific status on the information or specific area of interest",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "SubscriptionRequestObject",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionRequestObject"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SubscriptionResponsObject, Subscription successfully created",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionResponseObject"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "403": {
+            "description": "Not authorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "404": {
+            "description": "Information not found",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "501": {
+            "description": "Not implemented",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          }
+        }
+      }
+    },
+    "/v2/subscription/delete": {
+      "post": {
+        "tags": [
+          "Subscription"
+        ],
+        "summary": "This interface shall be used by the consumer to request removal of subscription.\r\nSpecific identity of the information object to remove subscription for. If no id entity provided, all subscriptions for the caller is removed",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "RemoveSubscriptionObject",
+            "schema": {
+              "$ref": "#/definitions/RemoveSubscriptionObject"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Subscription *identifier* removed",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "403": {
+            "description": "Not authorized to remove subscription",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "404": {
+            "description": "Subscription *identifier* not found",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "501": {
+            "description": "Not implemented",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          }
+        }
+      }
+    },
+    "/v2/subscription/notification": {
+      "post": {
+        "tags": [
+          "Subscription"
+        ],
+        "summary": "This interface receives notifications when subscription is created or removed by information producer.\r\nContains the identity of the information object in focus and type of event; Create or Delete.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "SubscriptionNotificationObject",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionNotificationObject"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Subscription *identifier* created/deleted notification received",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          },
+          "501": {
+            "description": "Not implemented",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          }
+        }
+      }
+    },
+    "/v2/object": {
+      "post": {
+        "tags": [
+          "Upload"
+        ],
+        "summary": "The interface shall be used for uploading (pushing) data to a consumer. The operation expects one single data object and its metadata.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "UploadObject",
+            "schema": {
+              "$ref": "#/definitions/UploadObject"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "UploadResponseObject, Message successfully uploaded",
+            "schema": {
+              "$ref": "#/definitions/UploadResponseObject"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/UploadResponseObject"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/UploadResponseObject"
+            }
+          },
+          "403": {
+            "description": "Not authorized to upload",
+            "schema": {
+              "$ref": "#/definitions/UploadResponseObject"
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "schema": {
+              "$ref": "#/definitions/UploadResponseObject"
+            }
+          },
+          "413": {
+            "description": "Request entity too large",
+            "schema": {
+              "$ref": "#/definitions/UploadResponseObject"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/UploadResponseObject"
+            }
+          },
+          "501": {
+            "description": "Not implemented",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          }
+        }
+      }
+    },
+    "/v2/object/link": {
+      "post": {
+        "tags": [
+          "Upload"
+        ],
+        "summary": "The purpose with this interface is to upload (push) a link to information to a consumer.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "UploadLinkObject",
+            "schema": {
+              "$ref": "#/definitions/UploadLinkObject"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "UploadResponseObject, Link successfully uploaded",
+            "schema": {
+              "$ref": "#/definitions/UploadResponseObject"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/UploadResponseObject"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/UploadResponseObject"
+            }
+          },
+          "403": {
+            "description": "Not authorized to upload link",
+            "schema": {
+              "$ref": "#/definitions/UploadResponseObject"
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "schema": {
+              "$ref": "#/definitions/UploadResponseObject"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/UploadResponseObject"
+            }
+          },
+          "501": {
+            "description": "Not implemented",
+            "schema": {
+              "$ref": "#/definitions/ResponseObject"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AccessNotificationObject": {
+      "required": [
+        "envelope",
+        "envelopeSignature"
+      ],
+      "type": "object",
+      "properties": {
+        "envelope": {
+          "$ref": "#/definitions/EnvelopeAccessNotificationObject"
+        },
+        "envelopeSignature": {
+          "description": "The signature ot the EnvelopeAccessNotificationObject in HEX format without whitespace or linebreaks",
+          "minLength": 1,
+          "pattern": "^(0x)?[A-Fa-f0-9]+$",
+          "type": "string",
+          "example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
+        }
+      },
+      "additionalProperties": false
+    },
+    "AccessRequestObject": {
+      "required": [
+        "envelope",
+        "envelopeSignature"
+      ],
+      "type": "object",
+      "properties": {
+        "envelope": {
+          "$ref": "#/definitions/EnvelopeAccessRequestObject"
+        },
+        "envelopeSignature": {
+          "description": "The signature ot the EnvelopeObject in HEX format without whitespace or linebreaks",
+          "minLength": 1,
+          "pattern": "^(0x)?[A-Fa-f0-9]+$",
+          "type": "string",
+          "example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
+        }
+      },
+      "additionalProperties": false
+    },
+    "AccessResponseObject": {
+      "required": [
+        "message"
+      ],
+      "type": "object",
+      "properties": {
+        "transactionIdentifier": {
+          "format": "uuid",
+          "description": "Transaction identifier to be referenced in Access Notification for correlation purposes",
+          "pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
+          "type": "string",
+          "example": "550e8400-e29b-41d4-a716-446655440000"
+        },
+        "message": {
+          "description": "Success or error response message",
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "AckRequestEnum": {
+      "format": "int32",
+      "description": "Acknowledgement request type\r\nNo_ACK_requested (0), Delivered_ACK_requested (1), Opened_ACK_requested (2), Delivered_and_Opened_ACK_requested (3)",
+      "enum": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "type": "integer"
+    },
+    "AckTypeEnum": {
+      "format": "int32",
+      "description": "Acknowledgement type\r\nDelivered (0), Opened (1), Error (2)",
+      "enum": [
+        0,
+        1,
+        2
+      ],
+      "type": "integer"
+    },
+    "AcknowledgementObject": {
+      "required": [
+        "envelope",
+        "envelopeSignature"
+      ],
+      "type": "object",
+      "properties": {
+        "envelope": {
+          "$ref": "#/definitions/EnvelopeAckObject"
+        },
+        "envelopeSignature": {
+          "description": "The signature ot the EnvelopeAckObject in HEX format without whitespace or linebreaks",
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "AcknowledgementResponseObject": {
+      "required": [
+        "message"
+      ],
+      "type": "object",
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/Secom_ResponseCodeEnum"
+        },
+        "message": {
+          "description": "Success or error response message",
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "CapabilityObject": {
+      "required": [
+        "containerType",
+        "dataProductType",
+        "implementedInterfaces",
+        "productSchemaUrl",
+        "serviceVersion"
+      ],
+      "type": "object",
+      "properties": {
+        "containerType": {
+          "$ref": "#/definitions/ContainerTypeEnum"
+        },
+        "dataProductType": {
+          "description": "Data product type requested, e.g. S-124, S-421, see 5.6.7 in IEC 63173-2 ed2",
+          "minLength": 3,
+          "pattern": "^(S-?\\d{2,3}|RTZ|EPC|ASM)$",
+          "type": "string",
+          "example": "S-124"
+        },
+        "productSchemaUrl": {
+          "description": "The schemaUrl attribute of the S100 Product",
+          "minLength": 1,
+          "type": "string"
+        },
+        "implementedInterfaces": {
+          "$ref": "#/definitions/ImplementedInterfaces"
+        },
+        "serviceVersion": {
+          "description": "Version of service instance, for example New Editions denoted as n.0.0\r\nRevisions denoted as n.n.0\r\nClarifications denoted as n.n.n",
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "CapabilityResponseObject": {
+      "required": [
+        "capability"
+      ],
+      "type": "object",
+      "properties": {
+        "capability": {
+          "description": "List of capability objects",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CapabilityObject"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "ContainerTypeEnum": {
+      "format": "int32",
+      "description": "Container type, S100_DATASET (0), S100_EXCHANGESET (1), NONE (2)",
+      "enum": [
+        0,
+        1,
+        2
+      ],
+      "type": "integer"
+    },
+    "DataResponseObject": {
+      "required": [
+        "ackRequest",
+        "data",
+        "exchangeMetadata"
+      ],
+      "type": "object",
+      "properties": {
+        "data": {
+          "format": "byte",
+          "description": "The data according to Product Specification embedded in JSON.The data may be encrypted and signed.",
+          "type": "string"
+        },
+        "exchangeMetadata": {
+          "$ref": "#/definitions/SECOM_ExchangeMetadataObject"
+        },
+        "ackRequest": {
+          "$ref": "#/definitions/AckRequestEnum"
+        }
+      },
+      "additionalProperties": false
+    },
+    "DigitalSignatureValueObject": {
+      "required": [
+        "digitalSignature",
+        "publicCertificate"
+      ],
+      "type": "object",
+      "properties": {
+        "publicRootCertificateThumbprint": {
+          "description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) Format: SHA-1 or SHA-256 thumbprint.",
+          "pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
+          "type": "string",
+          "example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
+        },
+        "publicCertificate": {
+          "description": "(S100) Public Key (chain) for claimed identity",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "digitalSignature": {
+          "description": "(S100) The digital signature in HEX format as one row, no trailing return/new line",
+          "minLength": 1,
+          "pattern": "^(0x)?[A-Fa-f0-9]+$",
+          "type": "string",
+          "example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EncryptionKeyObject": {
+      "required": [
+        "envelope",
+        "envelopeSignature"
+      ],
+      "type": "object",
+      "properties": {
+        "envelope": {
+          "$ref": "#/definitions/EnvelopeKeyObject"
+        },
+        "envelopeSignature": {
+          "description": "The signature ot the EnvelopeKeyObject in HEX format without whitespace or linebreaks",
+          "minLength": 1,
+          "pattern": "^(0x)?[A-Fa-f0-9]+$",
+          "type": "string",
+          "example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EncryptionKeyRequestObject": {
+      "required": [
+        "envelope",
+        "envelopeSignature"
+      ],
+      "type": "object",
+      "properties": {
+        "envelope": {
+          "$ref": "#/definitions/EnvelopeKeyRequestObject"
+        },
+        "envelopeSignature": {
+          "description": "The signature ot the EnvelopeKeyRequestObject in HEX format without whitespace or linebreaks",
+          "minLength": 1,
+          "pattern": "^(0x)?[A-Fa-f0-9]+$",
+          "type": "string",
+          "example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EncryptionKeyResponseObject": {
+      "required": [
+        "message"
+      ],
+      "type": "object",
+      "properties": {
+        "secoM_ResponseCode": {
+          "$ref": "#/definitions/Secom_ResponseCodeEnum"
+        },
+        "message": {
+          "description": "Success or error response message",
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopeAccessNotificationObject": {
+      "required": [
+        "decision",
+        "decisionReason",
+        "envelopeRootCertificateThumbprint",
+        "envelopeSignatureCertificate",
+        "envelopeSignatureTime",
+        "transactionIdentifier"
+      ],
+      "type": "object",
+      "properties": {
+        "decision": {
+          "description": "Access request decision, yes (true) or no (false)",
+          "type": "boolean"
+        },
+        "decisionReason": {
+          "description": "Human readable reason for decision",
+          "minLength": 1,
+          "type": "string"
+        },
+        "dataReference": {
+          "format": "uuid",
+          "description": "Data reference corresponding to the attribute in AccessRequestObject",
+          "pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
+          "type": "string",
+          "example": "550e8400-e29b-41d4-a716-446655440000"
+        },
+        "transactionIdentifier": {
+          "format": "uuid",
+          "description": "Transaction identifier corresponding to the attribute in AccessResponseObject for correlation purposes",
+          "pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
+          "type": "string",
+          "example": "550e8400-e29b-41d4-a716-446655440000"
+        },
+        "envelopeSignatureCertificate": {
+          "description": "The public certificate(s) of the sender, used to verify the envelope signature",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "envelopeRootCertificateThumbprint": {
+          "description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
+          "minLength": 1,
+          "pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
+          "type": "string",
+          "example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
+        },
+        "envelopeSignatureTime": {
+          "format": "date-time",
+          "description": "Time when envelope is signed, must be in UTC format: yyyy-MM-ddTHH:mm:ssZ. Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopeAccessRequestObject": {
+      "required": [
+        "envelopeRootCertificateThumbprint",
+        "envelopeSignatureCertificate",
+        "envelopeSignatureTime",
+        "reason",
+        "reasonEnum"
+      ],
+      "type": "object",
+      "properties": {
+        "reason": {
+          "description": "Human readable reason for requesting access",
+          "minLength": 1,
+          "type": "string"
+        },
+        "reasonEnum": {
+          "$ref": "#/definitions/ReasonEnum"
+        },
+        "containerType": {
+          "$ref": "#/definitions/ContainerTypeEnum"
+        },
+        "dataProductType": {
+          "description": "Data product type requested, e.g. S-124, S-421, see 5.6.7 in IEC 63173-2 ed2",
+          "pattern": "^(S-?\\d{2,3}|RTZ|EPC|ASM)$",
+          "type": "string",
+          "example": "S-124"
+        },
+        "dataReference": {
+          "format": "uuid",
+          "description": "Reference to the data requested access to",
+          "pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
+          "type": "string",
+          "example": "550e8400-e29b-41d4-a716-446655440000"
+        },
+        "productVersion": {
+          "description": "S-100 based Product type version requested, e.g. 1.0.0",
+          "type": "string"
+        },
+        "callbackEndpoint": {
+          "format": "uri",
+          "description": "Base URL without trailing slash to the requestor's SECOM service\r\nAccess notification can be sent to callbackEndpoint/access/notification\r\nIf not available, the Base URL where to send an access notification needs to be available through the search service (see 9.2 in IEC 63173-2 ed2)",
+          "pattern": "^(https?|ftp):\\/\\/([a-zA-Z0-9\\-._~%!$&'()*+,;=]+@)?([a-zA-Z0-9\\-._~]+)(:\\d+)?(\\/[^\\s]*)?$",
+          "type": "string",
+          "example": "https://example.com"
+        },
+        "envelopeSignatureCertificate": {
+          "description": "The public certificate(s) of the sender, used to verify the envelope signature",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "envelopeRootCertificateThumbprint": {
+          "description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
+          "minLength": 1,
+          "pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
+          "type": "string",
+          "example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
+        },
+        "envelopeSignatureTime": {
+          "format": "date-time",
+          "description": "Time when envelope is signed, must be in UTC format: yyyy-MM-ddTHH:mm:ssZ. Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopeAckObject": {
+      "required": [
+        "ackType",
+        "createdAt",
+        "envelopeRootCertificateThumbprint",
+        "envelopeSignatureCertificate",
+        "envelopeSignatureTime",
+        "transactionIdentifier"
+      ],
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "format": "date-time",
+          "description": "Creation time for the acknowledgement Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        },
+        "envelopeSignatureCertificate": {
+          "description": "The public certificate (chain) of the sender. used to verify the envelopeObject signature",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "envelopeRootCertificateThumbprint": {
+          "description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
+          "minLength": 1,
+          "pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
+          "type": "string",
+          "example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
+        },
+        "transactionIdentifier": {
+          "format": "uuid",
+          "description": "Reference identifier given in upload",
+          "pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
+          "type": "string",
+          "example": "550e8400-e29b-41d4-a716-446655440000"
+        },
+        "ackType": {
+          "$ref": "#/definitions/AckTypeEnum"
+        },
+        "nackType": {
+          "$ref": "#/definitions/NackTypeEnum"
+        },
+        "envelopeSignatureTime": {
+          "format": "date-time",
+          "description": "Time stamp when the envelope is signed Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopeGetByLinkObject": {
+      "required": [
+        "envelopeRootCertificateThumbprint",
+        "envelopeSignatureCertificate",
+        "envelopeSignatureTime"
+      ],
+      "type": "object",
+      "properties": {
+        "transactionIdentifier": {
+          "format": "uuid",
+          "description": "Identifier from Upload Link",
+          "pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
+          "type": "string",
+          "example": "550e8400-e29b-41d4-a716-446655440000"
+        },
+        "envelopeSignatureCertificate": {
+          "description": "The public certificate(s) of the sender. Used to verify the envelope signature.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "envelopeRootCertificateThumbprint": {
+          "description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
+          "minLength": 1,
+          "pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
+          "type": "string",
+          "example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
+        },
+        "envelopeSignatureTime": {
+          "format": "date-time",
+          "description": "Time when envelope is signed, must be in UTC format: yyyy-MM-ddTHH:mm:ssZ Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopeGetFilterObject": {
+      "required": [
+        "envelopeRootCertificateThumbprint",
+        "envelopeSignatureCertificate",
+        "envelopeSignatureTime"
+      ],
+      "type": "object",
+      "properties": {
+        "dataReference": {
+          "format": "uuid",
+          "description": "Reference to information object, e.g. from the GetSummary response",
+          "pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
+          "type": "string",
+          "example": "550e8400-e29b-41d4-a716-446655440000"
+        },
+        "containerType": {
+          "$ref": "#/definitions/ContainerTypeEnum"
+        },
+        "dataProductType": {
+          "description": "Data product type requested, e.g. S-124, S-421, see 5.6.7 in IEC 63173-2 ed2",
+          "pattern": "^(S-?\\d{2,3}|RTZ|EPC|ASM)$",
+          "type": "string",
+          "example": "S-124"
+        },
+        "productVersion": {
+          "description": "S-100 based Product type version, e.g. 1.0.0",
+          "type": "string"
+        },
+        "geometry": {
+          "description": "Geometry condition for geo-located information objects, see Table 12 in IEC 63173-2 ed2",
+          "type": "string"
+        },
+        "unlocode": {
+          "description": "Code of defined object, see 5.6.13 in IEC 63173-2 ed2",
+          "pattern": "^[a-zA-Z]{2}[a-zA-Z2-9]{3}$",
+          "type": "string",
+          "example": "USNYC"
+        },
+        "validFrom": {
+          "format": "date-time",
+          "description": "Valid from time Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        },
+        "validTo": {
+          "format": "date-time",
+          "description": "Valid until time Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        },
+        "page": {
+          "format": "int32",
+          "description": "Requested pagination page",
+          "minimum": 0,
+          "type": "integer",
+          "example": 0
+        },
+        "pageSize": {
+          "format": "int32",
+          "description": "Requested pagination page size",
+          "minimum": 0,
+          "type": "integer",
+          "example": 0
+        },
+        "envelopeSignatureCertificate": {
+          "description": "The public certificate(s) of the sender. Used to verify the envelope signature.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "envelopeRootCertificateThumbprint": {
+          "description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
+          "minLength": 1,
+          "pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
+          "type": "string",
+          "example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
+        },
+        "envelopeSignatureTime": {
+          "format": "date-time",
+          "description": "Time stamp when envelope is signed Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopeGetSummaryFilterObject": {
+      "required": [
+        "envelopeRootCertificateThumbprint",
+        "envelopeSignatureCertificate",
+        "envelopeSignatureTime"
+      ],
+      "type": "object",
+      "properties": {
+        "containerType": {
+          "$ref": "#/definitions/ContainerTypeEnum"
+        },
+        "dataProductType": {
+          "description": "Data product type requested, e.g. S-124, S-421, see 5.6.7 in IEC 63173-2 ed2",
+          "pattern": "^(S-?\\d{2,3}|RTZ|EPC|ASM)$",
+          "type": "string",
+          "example": "S-124"
+        },
+        "productVersion": {
+          "description": "S-100 based Product type version, e.g. 1.0.0",
+          "type": "string"
+        },
+        "geometry": {
+          "description": "Geometry condition for geo-located information objects, see Table 12 in IEC 63173-2 ed2",
+          "type": "string"
+        },
+        "unlocode": {
+          "description": "Code of defined object, see 5.6.13 in IEC 63173-2 ed2",
+          "pattern": "^[a-zA-Z]{2}[a-zA-Z2-9]{3}$",
+          "type": "string",
+          "example": "USNYC"
+        },
+        "validFrom": {
+          "format": "date-time",
+          "description": "Valid from time Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        },
+        "validTo": {
+          "format": "date-time",
+          "description": "Valid until time Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        },
+        "page": {
+          "format": "int32",
+          "description": "Requested pagination page",
+          "minimum": 0,
+          "type": "integer",
+          "example": 0
+        },
+        "pageSize": {
+          "format": "int32",
+          "description": "Requested pagination page size",
+          "minimum": 0,
+          "type": "integer",
+          "example": 0
+        },
+        "envelopeSignatureCertificate": {
+          "description": "The public certificate(s) of the sender, used to verify the envelope signature",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "envelopeRootCertificateThumbprint": {
+          "description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
+          "minLength": 1,
+          "pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
+          "type": "string",
+          "example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
+        },
+        "envelopeSignatureTime": {
+          "format": "date-time",
+          "description": "Time when envelope is signed, must be in UTC format: yyyy-MM-ddTHH:mm:ssZ Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopeKeyObject": {
+      "required": [
+        "digitalSignatureValue",
+        "encryptionKey",
+        "envelopeRootCertificateThumbprint",
+        "envelopeSignatureCertificate",
+        "envelopeSignatureTime",
+        "expirationTime",
+        "iv",
+        "transactionIdentifier"
+      ],
+      "type": "object",
+      "properties": {
+        "encryptionKey": {
+          "format": "byte",
+          "description": "The protected symmetric encryption key, Base64 encoded\r\nExample : KQdEi+9iUlq8B9cwWY...U8A2iDPhz7g==",
+          "type": "string"
+        },
+        "iv": {
+          "format": "byte",
+          "description": "Initialization vector, Base64 encoded\r\nExample: c9fUXeC5xrFuXGNNnGv9iA==",
+          "type": "string"
+        },
+        "transactionIdentifier": {
+          "format": "uuid",
+          "description": "Identifier to the transaction with the encrypted data",
+          "pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
+          "type": "string",
+          "example": "550e8400-e29b-41d4-a716-446655440000"
+        },
+        "digitalSignatureValue": {
+          "$ref": "#/definitions/DigitalSignatureValueObject"
+        },
+        "envelopeSignatureCertificate": {
+          "description": "The public certificate(s) of the sender, used to verify the EnvelopeKeyObject signature",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "envelopeRootCertificateThumbprint": {
+          "description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
+          "minLength": 1,
+          "pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
+          "type": "string",
+          "example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
+        },
+        "envelopeSignatureTime": {
+          "format": "date-time",
+          "description": "Time when encryptionKey envelope is signed Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        },
+        "expirationTime": {
+          "description": "Expiry time in UTC for the temporaty key",
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopeKeyRequestObject": {
+      "required": [
+        "dataReference",
+        "envelopeRootCertificateThumbprint",
+        "envelopeSignatureCertificate",
+        "envelopeSignatureTime",
+        "publicCertificate"
+      ],
+      "type": "object",
+      "properties": {
+        "dataReference": {
+          "format": "uuid",
+          "description": "Information identifier retrieved by using reference from response in Get Summary request (UUID)",
+          "pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
+          "type": "string",
+          "example": "550e8400-e29b-41d4-a716-446655440000"
+        },
+        "publicCertificate": {
+          "description": "Public certificate of data consumer for deriving shared symmetric key",
+          "minLength": 1,
+          "type": "string"
+        },
+        "envelopeSignatureCertificate": {
+          "description": "The public certificate(s) of the sender, used to verify the EnvelopeKeyRequestObject signature Key (X.509 Certificate)",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "envelopeSignatureTime": {
+          "format": "date-time",
+          "description": "Time when encryptionKey envelope is signed Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        },
+        "envelopeRootCertificateThumbprint": {
+          "description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
+          "minLength": 1,
+          "pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
+          "type": "string",
+          "example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
+        },
+        "callbackEndpoint": {
+          "format": "uri",
+          "description": "Base URL without trailing slash to the requestor SECOM service\r\nThe encryption key is sent asynchronously to callbackEndpoint/encryptionkey\r\nIf not available, the Base URL needs to be available in service registry for lookup",
+          "pattern": "^(https?|ftp):\\/\\/([a-zA-Z0-9\\-._~%!$&'()*+,;=]+@)?([a-zA-Z0-9\\-._~]+)(:\\d+)?(\\/[^\\s]*)?$",
+          "type": "string",
+          "example": "https://example.com"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopeLinkObject": {
+      "required": [
+        "ackRequest",
+        "containerType",
+        "dataProductType",
+        "envelopeRootCertificateThumbprint",
+        "envelopeSignatureCertificate",
+        "envelopeSignatureTime",
+        "exchangeMetadata",
+        "size",
+        "timeToLive",
+        "transactionIdentifier"
+      ],
+      "type": "object",
+      "properties": {
+        "containerType": {
+          "$ref": "#/definitions/ContainerTypeEnum"
+        },
+        "dataProductType": {
+          "description": "Data product type requested, e.g. S-124, S-421, see 5.6.7 in IEC 63173-2 ed2",
+          "minLength": 3,
+          "pattern": "^(S-?\\d{2,3}|RTZ|EPC|ASM)$",
+          "type": "string",
+          "example": "S-124"
+        },
+        "exchangeMetadata": {
+          "$ref": "#/definitions/SECOM_ExchangeMetadataObject"
+        },
+        "subscriptionIdentifier": {
+          "format": "uuid",
+          "description": "Subscription identifier is specified if the object is uploaded within a subscription.",
+          "pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
+          "type": "string",
+          "example": "550e8400-e29b-41d4-a716-446655440000"
+        },
+        "ackRequest": {
+          "$ref": "#/definitions/AckRequestEnum"
+        },
+        "callbackEndpoint": {
+          "format": "uri",
+          "description": "Base URL without trailing slash to the requestor SECOM service\r\nAcknowledgement can be sent to callbackEndpoint/acknowledgement\r\nIf not available, the Base URL needs to be available through the search service (see 9.2 in IEC 63173-2 ed2)",
+          "pattern": "^(https?|ftp):\\/\\/([a-zA-Z0-9\\-._~%!$&'()*+,;=]+@)?([a-zA-Z0-9\\-._~]+)(:\\d+)?(\\/[^\\s]*)?$",
+          "type": "string",
+          "example": "https://example.com"
+        },
+        "transactionIdentifier": {
+          "format": "uuid",
+          "description": "Transaction identifier to be used e.g. in acknowledgement",
+          "pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
+          "type": "string",
+          "example": "550e8400-e29b-41d4-a716-446655440000"
+        },
+        "envelopeSignatureCertificate": {
+          "description": "The public certificate(s) of the sender, used to verify the envelopeObject signature",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "envelopeRootCertificateThumbprint": {
+          "description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
+          "minLength": 1,
+          "pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
+          "type": "string",
+          "example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
+        },
+        "size": {
+          "format": "int32",
+          "description": "Approximated maximum size of the data file in kBytes to be downloaded.",
+          "type": "integer"
+        },
+        "timeToLive": {
+          "format": "date-time",
+          "description": "DateTime when data will be deleted on server. The data need to be fetched before this time. Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        },
+        "envelopeSignatureTime": {
+          "format": "date-time",
+          "description": "Time stamp when the envelope is signed Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopePublicKeyFilterObject": {
+      "required": [
+        "envelopeRootCertificateThumbprint",
+        "envelopeSignatureCertificate",
+        "envelopeSignatureTime"
+      ],
+      "type": "object",
+      "properties": {
+        "dataProtection": {
+          "description": "Flag indicating public certificate needed for encryption key exchange (true) or for signing (false)",
+          "type": "boolean"
+        },
+        "certificateThumbprint": {
+          "description": "Claimed Thumbprint for Signed Key (X.509 Certificate)",
+          "type": "string"
+        },
+        "envelopeSignatureCertificate": {
+          "description": "The public certificate(s) of the sender, used to verify the envelope signature",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "envelopeRootCertificateThumbprint": {
+          "description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
+          "minLength": 1,
+          "pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
+          "type": "string",
+          "example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
+        },
+        "envelopeSignatureTime": {
+          "format": "date-time",
+          "description": "Time when envelope is signed, must be in UTC format: yyyy-MM-ddTHH:mm:ssZ Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopePublicKeyRequestObject": {
+      "required": [
+        "envelopeRootCertificateThumbprint",
+        "envelopeSignatureCertificate",
+        "envelopeSignatureTime",
+        "publicCertificate"
+      ],
+      "type": "object",
+      "properties": {
+        "publicCertificate": {
+          "description": "Public certificate(s) x.509 in PEM format, Base64 encoded byte array.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "envelopeSignatureCertificate": {
+          "description": "The public certificate(s) of the sender, used to verify the envelope signature",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "envelopeRootCertificateThumbprint": {
+          "description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
+          "minLength": 1,
+          "pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
+          "type": "string",
+          "example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
+        },
+        "envelopeSignatureTime": {
+          "format": "date-time",
+          "description": "Time when envelope is signed, must be in UTC format: yyyy-MM-ddTHH:mm:ssZ Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopePublicKeyResponseObject": {
+      "required": [
+        "envelopeRootCertificateThumbprint",
+        "envelopeSignatureCertificate",
+        "envelopeSignatureTime",
+        "publicCertificate"
+      ],
+      "type": "object",
+      "properties": {
+        "publicCertificate": {
+          "description": "List of public certificates x.509 in PEM format, Base64 encoded byte array.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "envelopeSignatureCertificate": {
+          "description": "The public certificate(s) of the sender, used to verify the envelope signature",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "envelopeRootCertificateThumbprint": {
+          "description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
+          "minLength": 1,
+          "pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
+          "type": "string",
+          "example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
+        },
+        "envelopeSignatureTime": {
+          "format": "date-time",
+          "description": "Time when envelope is signed, must be in UTC format: yyyy-MM-ddTHH:mm:ssZ Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopeRemoveSubscriptionObject": {
+      "required": [
+        "envelopeRootCertificateThumbprint",
+        "envelopeSignatureCertificate",
+        "envelopeSignatureTime",
+        "subscriptionIdentifier"
+      ],
+      "type": "object",
+      "properties": {
+        "subscriptionIdentifier": {
+          "format": "uuid",
+          "description": "Subscription identifier to the subscription to be removed. Received in subscription request or subscription notification.",
+          "pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
+          "type": "string",
+          "example": "550e8400-e29b-41d4-a716-446655440000"
+        },
+        "envelopeSignatureCertificate": {
+          "description": "The public certificate(s) of the sender, used to verify the envelope signature",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "envelopeRootCertificateThumbprint": {
+          "description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
+          "minLength": 1,
+          "pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
+          "type": "string",
+          "example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
+        },
+        "envelopeSignatureTime": {
+          "format": "date-time",
+          "description": "Time when envelope is signed, must be in UTC format: yyyy-MM-ddTHH:mm:ssZ Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopeSubscriptionNotificationObject": {
+      "required": [
+        "envelopeRootCertificateThumbprint",
+        "envelopeSignatureCertificate",
+        "envelopeSignatureTime",
+        "eventEnum",
+        "subscriptionIdentifier"
+      ],
+      "type": "object",
+      "properties": {
+        "subscriptionIdentifier": {
+          "format": "uuid",
+          "description": "Identifier of the subscription",
+          "pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
+          "type": "string",
+          "example": "550e8400-e29b-41d4-a716-446655440000"
+        },
+        "eventEnum": {
+          "$ref": "#/definitions/SubscriptionEventEnum"
+        },
+        "envelopeSignatureCertificate": {
+          "description": "The public certificate(s) of the sender, used to verify the envelope signature",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "envelopeRootCertificateThumbprint": {
+          "description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
+          "minLength": 1,
+          "pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
+          "type": "string",
+          "example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
+        },
+        "envelopeSignatureTime": {
+          "format": "date-time",
+          "description": "Time when envelope is signed, must be in UTC format: yyyy-MM-ddTHH:mm:ssZ Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopeSubscriptionObject": {
+      "required": [
+        "envelopeRootCertificateThumbprint",
+        "envelopeSignatureCertificate",
+        "envelopeSignatureTime"
+      ],
+      "type": "object",
+      "properties": {
+        "containerType": {
+          "$ref": "#/definitions/ContainerTypeEnum"
+        },
+        "dataProductType": {
+          "description": "Data product type name requested, e.g. S-124, S-421, see 5.6.7 in IEC 63173-2 ed2",
+          "minLength": 3,
+          "pattern": "^(S-?\\d{2,3}|RTZ|EPC|ASM)$",
+          "type": "string",
+          "example": "S-124"
+        },
+        "dataReference": {
+          "format": "uuid",
+          "description": "Reference to data",
+          "pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
+          "type": "string",
+          "example": "550e8400-e29b-41d4-a716-446655440000"
+        },
+        "productVersion": {
+          "description": "S-100 based Product type version requested, e.g. 1.0.0",
+          "type": "string"
+        },
+        "geometry": {
+          "description": "Geometry condition for geolocated information objects as criteria, see Table 12 in IEC 63173-2 ed2",
+          "type": "string"
+        },
+        "unlocode": {
+          "description": "Code of defined object, see 5.6.13 in IEC 63173-2 ed2",
+          "type": "string"
+        },
+        "subscriptionPeriodStart": {
+          "format": "date-time",
+          "description": "Start time of subscription Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        },
+        "subscriptionPeriodEnd": {
+          "format": "date-time",
+          "description": "End time of subscription Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        },
+        "callbackEndpoint": {
+          "format": "uri",
+          "description": "Base URL without trailing slash to the requestor's SECOM service\r\nMessages within subscription are sent to callbackEndpoint/object\r\nIf not available, the Base URL needs to be available through search service (see 9.2 in IEC 63173-2 ed2)",
+          "pattern": "^(https?|ftp):\\/\\/([a-zA-Z0-9\\-._~%!$&'()*+,;=]+@)?([a-zA-Z0-9\\-._~]+)(:\\d+)?(\\/[^\\s]*)?$",
+          "type": "string",
+          "example": "https://example.com"
+        },
+        "pushAll": {
+          "description": "Flag for sending an initial set of data within requested subscription and then start the subscription.\r\nIf false, only data updates from the start of the subscription will be sent.",
+          "type": "boolean"
+        },
+        "envelopeSignatureCertificate": {
+          "description": "The public certificate(s) of the sender, used to verify the envelope signature",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "envelopeRootCertificateThumbprint": {
+          "description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
+          "minLength": 1,
+          "pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
+          "type": "string",
+          "example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
+        },
+        "envelopeSignatureTime": {
+          "format": "date-time",
+          "description": "Time when envelope is signed, must be in UTC format: yyyy-MM-ddTHH:mm:ssZ Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EnvelopeUploadObject": {
+      "required": [
+        "ackRequest",
+        "containerType",
+        "data",
+        "dataProductType",
+        "envelopeRootCertificateThumbprint",
+        "envelopeSignatureCertificate",
+        "envelopeSignatureTime",
+        "exchangeMetadata",
+        "transactionIdentifier"
+      ],
+      "type": "object",
+      "properties": {
+        "data": {
+          "format": "byte",
+          "description": "The payload XML dataProductType, base64 encoded (e.g. inside a S100_ExchangeSet, S100_DataSet), ZIP or binary The data can be open, protected and/or compressed.",
+          "type": "string"
+        },
+        "containerType": {
+          "$ref": "#/definitions/ContainerTypeEnum"
+        },
+        "dataProductType": {
+          "description": "Data product type requested, e.g. S-124, S-421, see 5.6.7 in IEC 63173-2 ed2",
+          "minLength": 3,
+          "pattern": "^(S-?\\d{2,3}|RTZ|EPC|ASM)$",
+          "type": "string",
+          "example": "S-124"
+        },
+        "exchangeMetadata": {
+          "$ref": "#/definitions/SECOM_ExchangeMetadataObject"
+        },
+        "subscriptionIdentifier": {
+          "format": "uuid",
+          "description": "Subscription identifier is specified if the object is uploaded within a subscription.",
+          "pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
+          "type": "string",
+          "example": "550e8400-e29b-41d4-a716-446655440000"
+        },
+        "ackRequest": {
+          "$ref": "#/definitions/AckRequestEnum"
+        },
+        "callbackEndpoint": {
+          "format": "uri",
+          "description": "Base URL without trailing slash to the requestor SECOM service\r\nAcknowledgement can be sent to callbackEndpoint/acknowledgement\r\nIf not available, the Base URL needs to be available through the search service (see 9.2 in IEC 63173-2 ed2)",
+          "pattern": "^(https?|ftp):\\/\\/([a-zA-Z0-9\\-._~%!$&'()*+,;=]+@)?([a-zA-Z0-9\\-._~]+)(:\\d+)?(\\/[^\\s]*)?$",
+          "type": "string",
+          "example": "https://example.com"
+        },
+        "transactionIdentifier": {
+          "format": "uuid",
+          "description": "Transaction identifier to be used e.g. in acknowledgement",
+          "pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
+          "type": "string",
+          "example": "550e8400-e29b-41d4-a716-446655440000"
+        },
+        "envelopeSignatureCertificate": {
+          "description": "The public certificate(s) of the sender, used to verify the envelopeObject signature",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "envelopeRootCertificateThumbprint": {
+          "description": "Claimed Thumbprint for Signed Root Key (X.509 Certificate) SHA256 and base64 as format Format: SHA-1 or SHA-256 thumbprint.",
+          "minLength": 1,
+          "pattern": "^([A-Fa-f0-9]{40}|[A-Fa-f0-9]{64}|([A-Fa-f0-9]{2}:){19}[A-Fa-f0-9]{2}|([A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2})$",
+          "type": "string",
+          "example": "AB12CD34EF56AB78CD90EF12AB34CD56EF78AB90"
+        },
+        "envelopeSignatureTime": {
+          "format": "date-time",
+          "description": "Time stamp when the envelope is signed Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        }
+      },
+      "additionalProperties": false
+    },
+    "GetByLinkObject": {
+      "type": "object",
+      "properties": {
+        "envelope": {
+          "$ref": "#/definitions/EnvelopeGetByLinkObject"
+        },
+        "envelopeSignature": {
+          "description": "The signature of the EnvelopeGetByLinkObject in HEX format without whitespace or linebreaks",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "GetFilterObject": {
+      "type": "object",
+      "properties": {
+        "envelope": {
+          "$ref": "#/definitions/EnvelopeGetFilterObject"
+        },
+        "envelopeSignature": {
+          "description": "The signature of the EnvelopeGetFilterObject in HEX format without whitespace or linebreaks",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "GetResponseObject": {
+      "required": [
+        "dataResponseObject",
+        "pagination"
+      ],
+      "type": "object",
+      "properties": {
+        "dataResponseObject": {
+          "description": "The data according to Product Specification embedded in JSON.The data may be encrypted and signed.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataResponseObject"
+          }
+        },
+        "pagination": {
+          "$ref": "#/definitions/PaginationObject"
+        }
+      },
+      "additionalProperties": false
+    },
+    "GetSummaryFilterObject": {
+      "type": "object",
+      "properties": {
+        "envelope": {
+          "$ref": "#/definitions/EnvelopeGetSummaryFilterObject"
+        },
+        "envelopeSignature": {
+          "description": "The signature of the EnvelopeGetSummaryFilterObject in HEX format without whitespace or linebreaks",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "GetSummaryResponseObject": {
+      "required": [
+        "pagination",
+        "summaryObject"
+      ],
+      "type": "object",
+      "properties": {
+        "summaryObject": {
+          "description": "Description of the information object",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SummaryObject"
+          }
+        },
+        "pagination": {
+          "$ref": "#/definitions/PaginationObject"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ImplementedInterfaces": {
+      "description": "Available interfaces for the SECOM API\r\nUpload = true means that the interface Upload is implemented and so on",
+      "type": "object",
+      "properties": {
+        "upload": {
+          "type": "boolean"
+        },
+        "uploadLink": {
+          "type": "boolean"
+        },
+        "get": {
+          "type": "boolean"
+        },
+        "getByLink": {
+          "type": "boolean"
+        },
+        "getSummary": {
+          "type": "boolean"
+        },
+        "subscription": {
+          "type": "boolean"
+        },
+        "access": {
+          "type": "boolean"
+        },
+        "encryptionKey": {
+          "type": "boolean"
+        },
+        "publicKey": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "NackTypeEnum": {
+      "format": "int32",
+      "description": "NACK type\r\nXMLSchemaValidationError (0), UnknownDataProductTypeOrVersion (1), FailedSignatureVerification (2), FailedDecryption (3), FailedDecompression (4)",
+      "enum": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "type": "integer"
+    },
+    "PaginationObject": {
+      "required": [
+        "maxItemsPerPage",
+        "totalItems"
+      ],
+      "type": "object",
+      "properties": {
+        "totalItems": {
+          "format": "int32",
+          "description": "The total number of items that satisfy the query. This is always returned unless the requested page is set to 0.",
+          "minimum": 0,
+          "type": "integer",
+          "example": 0
+        },
+        "maxItemsPerPage": {
+          "format": "int32",
+          "description": "The maximum number of items the service shall return per page.",
+          "minimum": 0,
+          "type": "integer",
+          "example": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "PingResponseObject": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "format": "date-time",
+          "description": "Describes the time of response Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PublicKeyFilterObject": {
+      "type": "object",
+      "properties": {
+        "envelope": {
+          "$ref": "#/definitions/EnvelopePublicKeyFilterObject"
+        },
+        "envelopeSignature": {
+          "description": "The signature ot the EnvelopeObject in HEX format without whitespace or linebreaks",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PublicKeyRequestObject": {
+      "required": [
+        "envelope",
+        "envelopeSignature"
+      ],
+      "type": "object",
+      "properties": {
+        "envelope": {
+          "$ref": "#/definitions/EnvelopePublicKeyRequestObject"
+        },
+        "envelopeSignature": {
+          "description": "The signature ot the EnvelopeObject in HEX format without whitespace or linebreaks",
+          "minLength": 1,
+          "pattern": "^(0x)?[A-Fa-f0-9]+$",
+          "type": "string",
+          "example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PublicKeyResponseObject": {
+      "required": [
+        "envelope",
+        "envelopeSignature"
+      ],
+      "type": "object",
+      "properties": {
+        "envelope": {
+          "$ref": "#/definitions/EnvelopePublicKeyResponseObject"
+        },
+        "envelopeSignature": {
+          "description": "The signature ot the EnvelopeObject in HEX format without whitespace or linebreaks",
+          "minLength": 1,
+          "pattern": "^(0x)?[A-Fa-f0-9]+$",
+          "type": "string",
+          "example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ReasonEnum": {
+      "format": "int32",
+      "description": "Reason for access request\r\nRequiredByAuthority (0), RequiredByServiceProvider (1)",
+      "enum": [
+        0,
+        1
+      ],
+      "type": "integer"
+    },
+    "RemoveSubscriptionObject": {
+      "required": [
+        "envelope",
+        "envelopeSignature"
+      ],
+      "type": "object",
+      "properties": {
+        "envelope": {
+          "$ref": "#/definitions/EnvelopeRemoveSubscriptionObject"
+        },
+        "envelopeSignature": {
+          "description": "The signature ot the EnvelopeRemoveSubscriptionObject in HEX format without whitespace or linebreaks",
+          "minLength": 1,
+          "pattern": "^(0x)?[A-Fa-f0-9]+$",
+          "type": "string",
+          "example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ResponseObject": {
+      "required": [
+        "message"
+      ],
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "Success or error response message",
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SECOM_ExchangeMetadataObject": {
+      "description": "The exchange metadata contains information regarding protection scheme, compression, signature and claimed identity.",
+      "required": [
+        "compressionFlag",
+        "dataProtection",
+        "digitalSignatureValue"
+      ],
+      "type": "object",
+      "properties": {
+        "dataProtection": {
+          "description": "(S-100) Indicates if the data is encrypted. \r\n0 indicates unencrypted data\r\n1 indicates encrypted data",
+          "type": "boolean"
+        },
+        "digitalSignatureValue": {
+          "$ref": "#/definitions/DigitalSignatureValueObject"
+        },
+        "compressionFlag": {
+          "description": "(S-100) Indicates if data is compressed.\r\n0 indicates uncompressed\r\n1 indicates compressed",
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Secom_ResponseCodeEnum": {
+      "format": "int32",
+      "enum": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "type": "integer"
+    },
+    "SubscriptionEventEnum": {
+      "format": "int32",
+      "description": "Subscription event type\r\nCreate (1), Delete (2)",
+      "enum": [
+        1,
+        2
+      ],
+      "type": "integer"
+    },
+    "SubscriptionNotificationObject": {
+      "required": [
+        "envelope",
+        "envelopeSignature"
+      ],
+      "type": "object",
+      "properties": {
+        "envelope": {
+          "$ref": "#/definitions/EnvelopeSubscriptionNotificationObject"
+        },
+        "envelopeSignature": {
+          "description": "The signature ot the EnvelopeSubscriptionNotificationObject in HEX format without whitespace or linebreaks",
+          "minLength": 1,
+          "pattern": "^(0x)?[A-Fa-f0-9]+$",
+          "type": "string",
+          "example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SubscriptionRequestObject": {
+      "required": [
+        "envelope",
+        "envelopeSignature"
+      ],
+      "type": "object",
+      "properties": {
+        "envelope": {
+          "$ref": "#/definitions/EnvelopeSubscriptionObject"
+        },
+        "envelopeSignature": {
+          "description": "The signature of the EnvelopSubscriptionObject in HEX format without whitespace or linebreaks",
+          "minLength": 1,
+          "pattern": "^(0x)?[A-Fa-f0-9]+$",
+          "type": "string",
+          "example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SubscriptionResponseObject": {
+      "required": [
+        "message",
+        "subscriptionIdentifier"
+      ],
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "Success or error response message",
+          "minLength": 1,
+          "type": "string"
+        },
+        "subscriptionIdentifier": {
+          "format": "uuid",
+          "description": "Subscription identifier, if successful",
+          "pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
+          "type": "string",
+          "example": "550e8400-e29b-41d4-a716-446655440000"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SummaryObject": {
+      "required": [
+        "dataCompression",
+        "dataProtection",
+        "dataReference",
+        "info_Description"
+      ],
+      "type": "object",
+      "properties": {
+        "dataReference": {
+          "format": "uuid",
+          "description": "Reference to data",
+          "minLength": 1,
+          "pattern": "^[{(]?[0-9a-fA-F]{8}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{4}[-]?[0-9a-fA-F]{12}[)}]?$",
+          "type": "string",
+          "example": "550e8400-e29b-41d4-a716-446655440000"
+        },
+        "dataProtection": {
+          "description": "Flag indicating if data is encrypted or not",
+          "type": "boolean"
+        },
+        "dataCompression": {
+          "description": "Flag indicating if data is compressed or not",
+          "type": "boolean"
+        },
+        "containerType": {
+          "$ref": "#/definitions/ContainerTypeEnum"
+        },
+        "dataProductType": {
+          "description": "Data product type name requested, e.g. S-124, S-421",
+          "minLength": 3,
+          "pattern": "^(S-?\\d{2,3}|RTZ|EPC|ASM)$",
+          "type": "string",
+          "example": "S-124"
+        },
+        "info_productVersion": {
+          "description": "S-100 based Product version e.g. 1.0.0",
+          "type": "string"
+        },
+        "info_identifier": {
+          "description": "Identifier of the information object",
+          "type": "string"
+        },
+        "info_name": {
+          "description": "Name of the information object",
+          "type": "string"
+        },
+        "info_Status": {
+          "description": "Status of the information object",
+          "type": "string"
+        },
+        "info_Description": {
+          "description": "Description of the information object",
+          "minLength": 1,
+          "type": "string"
+        },
+        "info_lastModifiedDate": {
+          "format": "date-time",
+          "description": "Date for last modified Must be in UTC format: yyyy-MM-ddTHH:mm:ssZ.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+          "type": "string",
+          "example": "2025-04-28T14:30:00Z"
+        },
+        "info_size": {
+          "format": "int32",
+          "description": "Size of the data",
+          "minimum": 0,
+          "type": "integer",
+          "example": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "UploadLinkObject": {
+      "required": [
+        "envelope",
+        "envelopeSignature"
+      ],
+      "type": "object",
+      "properties": {
+        "envelope": {
+          "$ref": "#/definitions/EnvelopeLinkObject"
+        },
+        "envelopeSignature": {
+          "description": "The signature of the EnvelopeLinkObject in HEX format without whitespace or linebreaks",
+          "minLength": 1,
+          "pattern": "^(0x)?[A-Fa-f0-9]+$",
+          "type": "string",
+          "example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
+        }
+      },
+      "additionalProperties": false
+    },
+    "UploadObject": {
+      "required": [
+        "envelope",
+        "envelopeSignature"
+      ],
+      "type": "object",
+      "properties": {
+        "envelope": {
+          "$ref": "#/definitions/EnvelopeUploadObject"
+        },
+        "envelopeSignature": {
+          "description": "The signature ot the EnvelopeUploadObject in HEX format without whitespace or linebreaks",
+          "minLength": 1,
+          "pattern": "^(0x)?[A-Fa-f0-9]+$",
+          "type": "string",
+          "example": "d2c3e9c9adfe87a52f2e993f7f4e56e9ce981a22e24465c0d850474c003dce50"
+        }
+      },
+      "additionalProperties": false
+    },
+    "UploadResponseObject": {
+      "required": [
+        "message"
+      ],
+      "type": "object",
+      "properties": {
+        "secoM_ResponseCode": {
+          "$ref": "#/definitions/Secom_ResponseCodeEnum"
+        },
+        "message": {
+          "description": "Success or error response message",
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
 }

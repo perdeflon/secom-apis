@@ -576,12 +576,12 @@
       },
       "ServiceInstanceStatus": {
         "enum": [
-          "Provisional",
-          "Released",
-          "Deprecated",
-          "Deleted"
+          0,
+          1,
+          2,
+          3
         ],
-        "type": "string",
+        "type": "integer",
         "description": "Service Instance Status, One of Provisional(0), Released(1), Deprecated(2), Deleted(3)"
       }
     }
